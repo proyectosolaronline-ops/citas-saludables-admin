@@ -189,7 +189,7 @@ input,select,textarea{font-family:var(--ff);outline:none}
 <!-- ══ APP ══ -->
 <div id="app">
   <div class="topbar">
-    <div class="tb-logo">Salud<span>Pro</span></div>
+    <div class="tb-logo" id="tb-logo">Salud<span>Pro</span></div>
     <div class="tb-badge">🔐 Admin</div>
     <!-- Avatar + nombre del generador logueado -->
     <div class="tb-gen">
@@ -264,6 +264,50 @@ input,select,textarea{font-family:var(--ff);outline:none}
         </div>
 
         <button class="btn-full" onclick="guardarPerfilGenerador()">💾 Guardar perfil</button>
+      </div>
+    </div>
+
+    <!-- ══ EDITOR LOGIN_GENERADOR ══ -->
+    <div class="sec">
+      <div class="sec-hdr">
+        <span class="sec-icon">✏️</span>
+        <div><div class="sec-title">Editor — Datos del Generador</div><div class="sec-sub">Edita nombre, teléfono, correo y estado de tu cuenta</div></div>
+      </div>
+      <div class="sec-body">
+        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--rs);padding:12px 14px;margin-bottom:14px;font-size:12px;color:var(--txt2)">
+          <strong style="color:var(--p2)">📋 Datos actuales en LOGIN_GENERADOR</strong>
+          <div style="margin-top:8px;display:grid;grid-template-columns:1fr 1fr;gap:6px">
+            <div>Email: <span style="color:var(--txt)" id="gen-actual-email">—</span></div>
+            <div>Estado: <span style="color:var(--txt)" id="gen-actual-estado">—</span></div>
+            <div>Nombre: <span style="color:var(--txt)" id="gen-actual-nombre">—</span></div>
+            <div>Teléfono: <span style="color:var(--txt)" id="gen-actual-tel">—</span></div>
+            <div style="grid-column:1/-1">Correo: <span style="color:var(--txt)" id="gen-actual-correo">—</span></div>
+          </div>
+        </div>
+        <div class="irow">
+          <div class="ifield">
+            <label>Nombre del generador</label>
+            <input type="text" id="edit-gen-nombre" placeholder="Tu nombre visible"/>
+          </div>
+          <div class="ifield">
+            <label>Estado</label>
+            <select id="edit-gen-estado">
+              <option value="activo">Activo</option>
+              <option value="inactivo">Inactivo</option>
+            </select>
+          </div>
+        </div>
+        <div class="irow">
+          <div class="ifield">
+            <label>Teléfono</label>
+            <input type="tel" id="edit-gen-telefono" placeholder="55 1234 5678"/>
+          </div>
+          <div class="ifield">
+            <label>Correo de contacto</label>
+            <input type="email" id="edit-gen-correo" placeholder="contacto@correo.com"/>
+          </div>
+        </div>
+        <button class="btn-full" onclick="guardarEditorGenerador()">💾 Guardar cambios del generador</button>
       </div>
     </div>
 
@@ -611,14 +655,17 @@ async function doLogin(){
 
     if(r.ok){
       // Guardar sesión con datos del generador
-      lsSet(ADMIN_SESSION_KEY, {
+      var sesionData = {
         ts:     Date.now(),
         exp:    Date.now() + (4*60*60*1000),
         email:  r.data.email  || email,
         nombre: r.data.nombre_generador || email,
         logo:   r.data.logo   || "",
         estado: r.data.estado || "activo"
-      });
+      };
+      lsSet(ADMIN_SESSION_KEY, sesionData);
+      // Aplicar nombre inmediatamente antes de mostrar el app
+      actualizarNombreSistema(sesionData.nombre);
       showApp();
     } else {
       showBanner("❌ " + (r.msg || "Credenciales incorrectas."));
@@ -662,6 +709,11 @@ window.addEventListener("DOMContentLoaded", function(){
     document.getElementById("splash").classList.add("hide");
     setTimeout(function(){
       applyTheme();
+      // Aplicar nombre guardado en sesión antes de mostrar cualquier pantalla
+      var sesionGuardada = lsGet(ADMIN_SESSION_KEY);
+      if(sesionGuardada && sesionGuardada.nombre){
+        actualizarNombreSistema(sesionGuardada.nombre);
+      }
       // Precargar URL del script si existe
       var url = getScriptUrl();
       if(url) document.getElementById("sec-script-url") && (document.getElementById("sec-script-url").value = url);
@@ -708,6 +760,7 @@ async function cargarPerfilGenerador(){
 
     if(r.ok && r.data){
       var d = r.data;
+      actualizarNombreSistema(d.nombre_generador || sesion.nombre || "Admin");
       document.getElementById("g-nombre").value   = d.nombre_generador || "";
       document.getElementById("g-telefono").value = d.telefono || "";
       document.getElementById("g-correo").value   = d.correo   || "";
@@ -720,6 +773,17 @@ async function cargarPerfilGenerador(){
 
       // Actualizar tarjeta de perfil
       document.getElementById("gen-info-nombre").textContent = d.nombre_generador || sesion.email;
+      // Llenar editor con datos actuales
+      document.getElementById("edit-gen-nombre").value   = d.nombre_generador || "";
+      document.getElementById("edit-gen-telefono").value = d.telefono || "";
+      document.getElementById("edit-gen-correo").value   = d.correo   || "";
+      document.getElementById("edit-gen-estado").value   = d.estado   || "activo";
+      // Mostrar datos actuales en la tarjeta de info
+      document.getElementById("gen-actual-email").textContent  = sesion.email;
+      document.getElementById("gen-actual-nombre").textContent = d.nombre_generador || "—";
+      document.getElementById("gen-actual-tel").textContent    = d.telefono || "—";
+      document.getElementById("gen-actual-correo").textContent = d.correo   || "—";
+      document.getElementById("gen-actual-estado").textContent = d.estado   || "—";
       document.getElementById("gen-info-email").textContent  = sesion.email;
       actualizarTopbarGen(d.nombre_generador || sesion.email, d.logo);
 
@@ -1242,6 +1306,74 @@ function toast(msg, type){
   var t = document.getElementById("toast");
   t.textContent=msg; t.className="on "+(type||"");
   clearTimeout(_tt); _tt=setTimeout(function(){ t.classList.remove("on"); },3200);
+}
+
+// ══════════════════════════════════════════════
+//  NOMBRE DEL SISTEMA — reemplaza "SaludPro"
+//  con el nombre_generador del Sheet
+// ══════════════════════════════════════════════
+function guardarEditorGenerador(){
+  var sesion = lsGet(ADMIN_SESSION_KEY);
+  if(!sesion || !sesion.email){ toast("Sesión expirada","err"); return; }
+  var secret = getAdminSecret();
+  if(!secret){ toast("Configura el Admin Secret en Seguridad","err"); return; }
+
+  var datos = {
+    email:            sesion.email,
+    nombre_generador: document.getElementById("edit-gen-nombre").value.trim(),
+    telefono:         document.getElementById("edit-gen-telefono").value.trim(),
+    correo:           document.getElementById("edit-gen-correo").value.trim(),
+    estado:           document.getElementById("edit-gen-estado").value
+  };
+
+  if(!datos.nombre_generador){ toast("El nombre es requerido","err"); return; }
+
+  var btn = document.querySelector("#app .sec:nth-of-type(2) .btn-full");
+  if(btn){ btn.disabled=true; btn.textContent="Guardando..."; }
+
+  var fd = new FormData();
+  fd.append("action",       "saveGenerador");
+  fd.append("admin_secret", secret);
+  fd.append("data",         JSON.stringify(datos));
+
+  fetch(getScriptUrl(), { method:"POST", body:fd })
+    .then(function(r){ return r.json(); })
+    .then(function(r){
+      if(r.ok){
+        toast("✅ Datos del generador guardados","ok");
+        // Actualizar datos mostrados
+        document.getElementById("gen-actual-nombre").textContent  = datos.nombre_generador;
+        document.getElementById("gen-actual-tel").textContent     = datos.telefono || "—";
+        document.getElementById("gen-actual-correo").textContent  = datos.correo   || "—";
+        document.getElementById("gen-actual-estado").textContent  = datos.estado;
+        // Actualizar nombre en el sistema
+        actualizarNombreSistema(datos.nombre_generador);
+        // Actualizar sesión
+        sesion.nombre = datos.nombre_generador;
+        lsSet(ADMIN_SESSION_KEY, sesion);
+      } else {
+        toast("❌ " + (r.msg||"Error al guardar"),"err");
+      }
+    })
+    .catch(function(e){ toast("❌ Error: "+e.message,"err"); })
+    .finally(function(){
+      if(btn){ btn.disabled=false; btn.textContent="💾 Guardar cambios del generador"; }
+    });
+}
+
+function actualizarNombreSistema(nombre){
+  if(!nombre) return;
+  // Topbar logo
+  var tb = document.getElementById("tb-logo");
+  if(tb) tb.innerHTML = nombre;
+  // Título de la pestaña del navegador
+  document.title = nombre + " — Admin";
+  // Logo en la pantalla de login
+  var ll = document.querySelector(".l-logo");
+  if(ll) ll.innerHTML = nombre + ' <span style="font-size:13px;color:var(--txt3);font-weight:400">Admin</span>';
+  // Splash screen
+  var sp = document.querySelector(".sp-logo");
+  if(sp) sp.innerHTML = nombre;
 }
 </script>
 </body>
