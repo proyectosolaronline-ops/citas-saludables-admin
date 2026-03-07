@@ -32,13 +32,17 @@ input,select,textarea{font-family:var(--ff);outline:none}
 @keyframes spfill{from{width:0}to{width:100%}}
 #login{position:fixed;inset:0;background:var(--bg);z-index:100;display:none;align-items:center;justify-content:center;padding:20px}
 #login.on{display:flex}
-.lcard{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:36px;width:100%;max-width:380px;box-shadow:0 8px 40px rgba(0,0,0,.5)}
+.lcard{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:36px;width:100%;max-width:400px;box-shadow:0 8px 40px rgba(0,0,0,.5)}
 .l-logo{font-size:24px;font-weight:700;color:var(--p);letter-spacing:-.5px;margin-bottom:2px}
 .l-logo span{color:var(--p2)}
 .l-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(220,38,38,.1);border:1px solid rgba(220,38,38,.25);color:#FCA5A5;padding:3px 11px;border-radius:99px;font-size:11px;font-weight:700;letter-spacing:.5px;margin-bottom:16px}
-.l-sub{color:var(--txt2);font-size:12px;margin-bottom:24px}
-.banner{background:rgba(220,38,38,.1);border:1px solid rgba(220,38,38,.3);color:#FCA5A5;padding:10px 14px;border-radius:var(--rs);font-size:13px;margin-bottom:14px;display:none}
+.l-sub{color:var(--txt2);font-size:12px;margin-bottom:20px;line-height:1.6}
+.banner{background:rgba(220,38,38,.1);border:1px solid rgba(220,38,38,.3);color:#FCA5A5;padding:10px 14px;border-radius:var(--rs);font-size:13px;margin-bottom:14px;display:none;line-height:1.5}
 .banner.on{display:block}
+.url-cfg{margin-bottom:16px;padding:12px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--rs)}
+.url-cfg-lbl{font-size:10px;font-weight:700;color:var(--txt3);letter-spacing:.5px;text-transform:uppercase;margin-bottom:5px}
+.url-cfg input{width:100%;background:var(--card);border:1px solid var(--border);color:var(--txt);padding:8px 10px;border-radius:var(--rs);font-size:11px;font-family:var(--fm);transition:.2s}
+.url-cfg input:focus{border-color:var(--p)}
 .field{margin-bottom:14px}
 .field label{display:block;font-size:11px;font-weight:700;color:var(--txt2);letter-spacing:.5px;text-transform:uppercase;margin-bottom:6px}
 .field input{width:100%;background:var(--bg2);border:1px solid var(--border);color:var(--txt);padding:10px 13px;border-radius:var(--rs);font-size:14px;transition:.2s}
@@ -53,6 +57,10 @@ input,select,textarea{font-family:var(--ff);outline:none}
 .tb-logo{font-size:16px;font-weight:700;color:var(--p)}
 .tb-logo span{color:var(--p2)}
 .tb-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(220,38,38,.12);border:1px solid rgba(220,38,38,.25);color:#FCA5A5;padding:2px 9px;border-radius:99px;font-size:11px;font-weight:700}
+.tb-gen{display:flex;align-items:center;gap:8px;margin-left:8px}
+.tb-av{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--p),var(--p2));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;overflow:hidden;flex-shrink:0}
+.tb-av img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.tb-nom{font-size:12px;font-weight:600;color:var(--txt2);max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .tb-right{margin-left:auto;display:flex;gap:6px}
 .ib{width:34px;height:34px;border-radius:var(--rs);background:transparent;display:flex;align-items:center;justify-content:center;color:var(--txt2);font-size:17px;transition:.15s}
 .ib:hover{background:var(--card2);color:var(--txt)}
@@ -138,14 +146,22 @@ input,select,textarea{font-family:var(--ff);outline:none}
   <div class="lcard">
     <div class="l-logo">Salud<span>Pro</span> <span style="font-size:13px;color:var(--txt3);font-weight:400">Admin</span></div>
     <div class="l-badge">🔐 ACCESO RESTRINGIDO</div>
-    <div class="l-sub">Panel privado de configuración y licencias</div>
+    <div class="l-sub">Credenciales validadas contra el backend.<br>Tu usuario debe estar en <strong style="color:var(--txt)">LOGIN_GENERADOR</strong> con estado <strong style="color:var(--txt)">activo</strong>.</div>
     <div class="banner" id="banner"></div>
-    <div class="field">
-      <label>Contraseña admin</label>
-      <input type="password" id="f-pass" placeholder="••••••••" autocomplete="current-password"/>
-      <div class="hint">Ingresa la contraseña configurada en el panel de seguridad.</div>
+    <div class="url-cfg">
+      <div class="url-cfg-lbl">URL del Apps Script</div>
+      <input type="url" id="login-script-url" placeholder="https://script.google.com/macros/s/.../exec" autocomplete="off" oninput="saveScriptUrl(this.value)"/>
     </div>
-    <button class="btn" onclick="doLogin()">🔐 Acceder al panel</button>
+    <div class="field">
+      <label>Email</label>
+      <input type="email" id="f-email" placeholder="admin@correo.com" autocomplete="username"/>
+    </div>
+    <div class="field">
+      <label>Contraseña</label>
+      <input type="password" id="f-pass" placeholder="••••••••" autocomplete="current-password"/>
+      <div class="hint">Contraseña de la columna <strong>pass</strong> en LOGIN_GENERADOR — respeta mayúsculas.</div>
+    </div>
+    <button class="btn" id="btn-login" onclick="doLogin()">🔐 Acceder al panel</button>
   </div>
 </div>
 
@@ -153,6 +169,10 @@ input,select,textarea{font-family:var(--ff);outline:none}
   <div class="topbar">
     <div class="tb-logo">Salud<span>Pro</span></div>
     <div class="tb-badge">🔐 Admin</div>
+    <div class="tb-gen">
+      <div class="tb-av" id="tb-av">?</div>
+      <div class="tb-nom" id="tb-nom">—</div>
+    </div>
     <div class="tb-right">
       <button class="ib" onclick="toggleTheme()" title="Tema">🌓</button>
       <button class="ib" onclick="doLogout()" title="Salir">🚪</button>
@@ -292,7 +312,6 @@ input,select,textarea{font-family:var(--ff);outline:none}
         </div>
 
         <div id="editor-form" style="display:none">
-          <!-- LOGO -->
           <div style="font-size:11px;font-weight:700;color:var(--p2);letter-spacing:.5px;text-transform:uppercase;margin:14px 0 8px">Logo del consultorio</div>
           <div class="logo-preview-row">
             <img id="e-logo-preview" class="logo-preview-img" src="" alt="Logo"/>
@@ -308,7 +327,6 @@ input,select,textarea{font-family:var(--ff);outline:none}
             </div>
           </div>
 
-          <!-- Identidad -->
           <div style="font-size:11px;font-weight:700;color:var(--p2);letter-spacing:.5px;text-transform:uppercase;margin:14px 0 8px">Identidad</div>
           <div class="irow">
             <div class="ifield">
@@ -340,7 +358,6 @@ input,select,textarea{font-family:var(--ff);outline:none}
             </div>
           </div>
 
-          <!-- Contacto -->
           <div style="font-size:11px;font-weight:700;color:var(--p2);letter-spacing:.5px;text-transform:uppercase;margin:14px 0 8px">Contacto y ubicación</div>
           <div class="irow">
             <div class="ifield">
@@ -361,13 +378,11 @@ input,select,textarea{font-family:var(--ff);outline:none}
             <input type="text" id="e-horario" placeholder="Lun–Vie 9:00–18:00 · Sáb 9:00–13:00" oninput="actualizarPreview()"/>
           </div>
 
-          <!-- Servicios -->
           <div style="font-size:11px;font-weight:700;color:var(--p2);letter-spacing:.5px;text-transform:uppercase;margin:14px 0 8px">Servicios</div>
           <div class="ifield">
             <textarea id="e-servicios" rows="3" placeholder="Un servicio por línea:&#10;Consulta general&#10;Primera vez&#10;Seguimiento&#10;Urgencia" oninput="actualizarPreview()"></textarea>
           </div>
 
-          <!-- Preview -->
           <div class="preview-wrap">
             <div class="preview-label">Vista previa de la landing</div>
             <div class="preview-hero">
@@ -403,32 +418,21 @@ input,select,textarea{font-family:var(--ff);outline:none}
       </div>
     </div>
 
-    <!-- SEGURIDAD -->
+    <!-- ══ CONFIGURACIÓN ══ -->
     <div class="sec">
       <div class="sec-hdr">
-        <span class="sec-icon">🔐</span>
-        <div><div class="sec-title">Seguridad</div><div class="sec-sub">Contraseña del panel admin</div></div>
+        <span class="sec-icon">⚙️</span>
+        <div><div class="sec-title">Configuración</div><div class="sec-sub">Opciones del panel</div></div>
       </div>
       <div class="sec-body">
-        <div class="ifield">
-          <label>Nueva contraseña admin (mínimo 8 caracteres)</label>
-          <input type="password" id="sec-admin-pass" placeholder="••••••••••••"/>
-        </div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <button class="btn-sm" onclick="saveAdminPass()">💾 Guardar contraseña</button>
-          <button class="btn-sm danger" onclick="resetAllConfig()">💥 Reset localStorage</button>
-        </div>
-        <div style="margin-top:12px;padding:10px;background:rgba(26,127,193,.08);border-radius:var(--rs);border:1px solid rgba(26,127,193,.2)">
-          <div style="font-size:11px;color:var(--txt2);line-height:1.6">
-            <strong style="color:var(--p2)">⚠ Seguridad:</strong>
-            La contraseña se guarda solo en este navegador. Si cambias de dispositivo, deberás reconfigurarla.
-            El ADMIN_SECRET del AppScript se configura directamente en el código del script.
-          </div>
+        <button class="btn-sm danger" onclick="resetAllConfig()">💥 Reset y cerrar sesión</button>
+        <div style="margin-top:10px;font-size:12px;color:var(--txt3);line-height:1.6">
+          Reset borra la sesión y la URL guardada en este navegador. No afecta Google Sheets.
         </div>
       </div>
     </div>
 
-    <div style="text-align:center;padding:20px 0 32px;color:var(--txt3);font-size:12px">SaludPro Admin Panel · v3.5</div>
+    <div style="text-align:center;padding:20px 0 32px;color:var(--txt3);font-size:12px">SaludPro Admin Panel · v4.0</div>
   </div>
 </div>
 
@@ -442,521 +446,308 @@ var SCRIPT_URL_DEFAULT = "https://script.google.com/macros/s/AKfycbwu7VVHC3RgS1f
 var BASE_URL           = "https://proyectosolaronline-ops.github.io/Citas-Pro-Salud";
 var ADMIN_SESSION_KEY  = "sp_admin_session";
 
-var LICENSE       = { adminPass:"", scriptUrl: SCRIPT_URL_DEFAULT };
-var MEDICOS_CACHE = [];
-var EDITOR_SLUG   = "";
+var MEDICOS_CACHE   = [];
+var EDITOR_SLUG     = "";
 var EDITOR_LOGO_B64 = "";
 
 function lsGet(k){ try{ return JSON.parse(localStorage.getItem(k)); }catch(e){ return null; } }
 function lsSet(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} }
+function getSesion(){ return lsGet(ADMIN_SESSION_KEY)||null; }
 
 function getScriptUrl(){
-  try{
-    var u = localStorage.getItem("sp_url");
-    if(u && u.length>10) return u;
-    var c = lsGet("sp_cfg")||{};
-    if(c.url && c.url.length>10) return c.url;
-  }catch(e){}
+  try{ var u=localStorage.getItem("sp_url"); if(u&&u.length>10) return u; }catch(e){}
   return SCRIPT_URL_DEFAULT;
 }
-
-// ✅ ADMIN_SECRET se configura manualmente — nunca hardcodeado aquí
-function getAdminSecret(){
-  try{
-    var s = localStorage.getItem("sp_admin_secret");
-    if(s && s.length > 8) return s;
-  }catch(e){}
-  // Si no está configurado, retornar vacío — el admin debe configurarlo
-  return "";
-}
-
-// ✅ POST helper
-function postApi(data){
-  var fd = new FormData();
-  Object.keys(data).forEach(function(k){ fd.append(k, data[k]); });
-  return fetch(getScriptUrl(), { method:"POST", body:fd }).then(function(r){ return r.json(); });
-}
-
 function saveScriptUrl(val){
   val=(val||"").trim(); if(!val) return;
-  localStorage.setItem("sp_url", val);
-  var cfg=lsGet("sp_cfg")||{}; cfg.url=val; lsSet("sp_cfg",cfg);
-  LICENSE.scriptUrl=val; lsSet("sp_license",LICENSE);
+  localStorage.setItem("sp_url",val);
+  // Sincronizar ambos inputs de URL
+  var a=document.getElementById("login-script-url"),b=document.getElementById("sec-script-url");
+  if(a&&a.value!==val) a.value=val;
+  if(b&&b.value!==val) b.value=val;
 }
 
-function loadLicense(){
-  var l=lsGet("sp_license")||{};
-  Object.assign(LICENSE,l);
-  if(!LICENSE.scriptUrl) LICENSE.scriptUrl=SCRIPT_URL_DEFAULT;
+// ── POST helper — inyecta email de sesión si el caller no lo pasó ──
+function postApi(data){
+  var sesion=getSesion()||{};
+  var fd=new FormData();
+  Object.keys(data).forEach(function(k){ fd.append(k,data[k]); });
+  if(!data.email && sesion.email) fd.append("email",sesion.email);
+  return fetch(getScriptUrl(),{method:"POST",body:fd}).then(function(r){ return r.json(); });
 }
 
 // ══════════════════════════════════════════════
-//  LOGIN — contraseña inicial si no hay ninguna
+//  LOGIN — valida contra loginGenerador del backend
 // ══════════════════════════════════════════════
-var PASS_INICIAL = "admin2025"; // Solo sirve si NO hay contraseña configurada
+async function doLogin(){
+  var email=(document.getElementById("f-email").value||"").trim().toLowerCase();
+  var pass =(document.getElementById("f-pass").value||"").trim();
+  hideBanner();
 
-function doLogin(){
-  var input  = document.getElementById("f-pass").value.trim();
-  var stored = LICENSE.adminPass || "";
+  if(!email){ showBanner("Ingresa tu email."); return; }
+  if(!pass) { showBanner("Ingresa tu contraseña."); return; }
 
-  // Sin contraseña configurada: aceptar la contraseña inicial
-  if(!stored){
-    if(input !== PASS_INICIAL){
-      showBanner("Contraseña inicial: admin2025 — cámbiala desde Seguridad una vez adentro.");
-      return;
+  var btn=document.getElementById("btn-login");
+  btn.disabled=true; btn.textContent="⏳ Verificando...";
+
+  try{
+    // POST directo (sin postApi) para evitar inyectar email de sesión vacía
+    var fd=new FormData();
+    fd.append("action","loginGenerador");
+    fd.append("email",email);
+    fd.append("pass",pass);
+    var r=await fetch(getScriptUrl(),{method:"POST",body:fd}).then(function(res){ return res.json(); });
+
+    if(r.ok){
+      lsSet(ADMIN_SESSION_KEY,{
+        ts:    Date.now(),
+        exp:   Date.now()+(4*60*60*1000),
+        email: r.data.email||email,
+        nombre:r.data.nombre_generador||email,
+        logo:  r.data.logo||""
+      });
+      showApp(r.data);
+    } else {
+      showBanner("❌ "+(r.msg||"Credenciales incorrectas."));
     }
-    startSession();
-    return;
-  }
-
-  if(input !== stored){
-    showBanner("❌ Contraseña incorrecta.");
-    return;
-  }
-  startSession();
-}
-
-function startSession(){
-  lsSet(ADMIN_SESSION_KEY,{ts:Date.now(),exp:Date.now()+(4*60*60*1000)});
-  showApp();
+  }catch(e){ showBanner("❌ Sin conexión: "+e.message); }
+  finally{ btn.disabled=false; btn.textContent="🔐 Acceder al panel"; }
 }
 
 function checkSession(){
   var s=lsGet(ADMIN_SESSION_KEY);
   if(!s||!s.exp||Date.now()>=s.exp) return false;
-  // Renovar sesión si hay actividad reciente
-  if(s.exp - Date.now() < 2*60*60*1000){
-    lsSet(ADMIN_SESSION_KEY,{ts:Date.now(),exp:Date.now()+(4*60*60*1000)});
-  }
+  if(s.exp-Date.now()<2*60*60*1000){ s.exp=Date.now()+(4*60*60*1000); lsSet(ADMIN_SESSION_KEY,s); }
   return true;
 }
-
-function doLogout(){ if(!confirm("¿Cerrar sesión?")) return; localStorage.removeItem(ADMIN_SESSION_KEY); showLogin(); }
+function doLogout(){ if(!confirm("¿Cerrar sesión?")) return; localStorage.removeItem(ADMIN_SESSION_KEY); location.reload(); }
 function showBanner(msg){ var b=document.getElementById("banner"); b.textContent=msg; b.classList.add("on"); }
+function hideBanner(){ document.getElementById("banner").classList.remove("on"); }
 function showLogin(){ document.getElementById("app").classList.remove("on"); document.getElementById("login").classList.add("on"); }
-function showApp(){   document.getElementById("login").classList.remove("on"); document.getElementById("app").classList.add("on"); loadUI(); }
+function showApp(genData){
+  document.getElementById("login").classList.remove("on");
+  document.getElementById("app").classList.add("on");
+  var s=getSesion()||{};
+  var nombre=(genData&&genData.nombre_generador)||s.nombre||s.email||"Admin";
+  var logo  =(genData&&genData.logo)||s.logo||"";
+  setTopbar(nombre,logo); loadUI();
+}
 
 window.addEventListener("DOMContentLoaded",function(){
   setTimeout(function(){
     document.getElementById("splash").classList.add("hide");
     setTimeout(function(){
-      loadLicense(); applyTheme();
-      if(checkSession()){
-        showApp();
-      } else {
-        showLogin();
-        if(!LICENSE.adminPass){
-          showBanner("Primera vez — usa la contraseña inicial: admin2025");
-        }
-      }
-      document.getElementById("f-pass").addEventListener("keydown",function(e){ if(e.key==="Enter") doLogin(); });
+      applyTheme();
+      var url=getScriptUrl();
+      document.getElementById("login-script-url").value=url;
+      document.getElementById("sec-script-url").value=url;
+      if(checkSession()){ showApp(null); } else { showLogin(); }
+      ["f-email","f-pass"].forEach(function(id){
+        document.getElementById(id).addEventListener("keydown",function(e){ if(e.key==="Enter") doLogin(); });
+      });
     },500);
   },1400);
 });
 
 function loadUI(){
-  var url=getScriptUrl();
-  document.getElementById("sec-script-url").value=url;
-  if(url) saveScriptUrl(url);
+  document.getElementById("sec-script-url").value=getScriptUrl();
   var d=new Date(); d.setFullYear(d.getFullYear()+1);
   document.getElementById("m-vence").value=d.toISOString().slice(0,10);
 }
 
+function setTopbar(nombre,logo){
+  var av=document.getElementById("tb-av"),nb=document.getElementById("tb-nom");
+  if(nb) nb.textContent=nombre||"—";
+  if(av){ if(logo&&logo.length>100){ av.innerHTML='<img src="'+logo+'"/>'; } else { av.textContent=(nombre||"?")[0].toUpperCase(); } }
+}
+
 // ══════════════════════════════════════════════
-//  PASO 1 — CONEXIÓN (GET para ping)
+//  PASO 1 — CONEXIÓN
 // ══════════════════════════════════════════════
 async function testConnection(){
   var url=document.getElementById("sec-script-url").value.trim();
-  if(!url){toast("Pega primero la URL del script","err");return;}
+  if(!url){ toast("Pega primero la URL del script","err"); return; }
   var el=document.getElementById("conn-result");
   el.style.display="block"; el.textContent="🔄 Probando conexión…"; el.style.color="var(--txt2)";
   try{
     var r=await(await fetch(url+"?action=ping")).json();
-    if(r.ok){
-      el.textContent="✅ Conectado · SaludPro v"+(r.version||"?")+" · "+(r.ts||"");
-      el.style.color="#4ADE80"; saveScriptUrl(url); toast("✅ Conexión exitosa","ok");
-    } else {
-      el.textContent="❌ "+(r.msg||"Error"); el.style.color="#FCA5A5"; toast("❌ Error en script","err");
-    }
+    if(r.ok){ el.textContent="✅ Conectado · SaludPro v"+(r.version||"?")+" · "+(r.ts||""); el.style.color="#4ADE80"; saveScriptUrl(url); toast("✅ Conexión exitosa","ok"); }
+    else     { el.textContent="❌ "+(r.msg||"Error"); el.style.color="#FCA5A5"; toast("❌ Error en script","err"); }
   }catch(e){ el.textContent="❌ Sin conexión: "+e.message; el.style.color="#FCA5A5"; toast("❌ Sin conexión","err"); }
 }
 
 // ══════════════════════════════════════════════
-//  PASO 2 — CREAR MÉDICO — ✅ POST real
+//  PASO 2 — CREAR MÉDICO
 // ══════════════════════════════════════════════
 async function crearMedico(){
-  var nombre  = document.getElementById("m-nombre").value.trim();
-  var prefijo = document.getElementById("m-prefijo").value;
-  var email   = document.getElementById("m-email").value.trim();
-  var pass    = document.getElementById("m-pass").value.trim();
-  var esp     = document.getElementById("m-especialidad").value;
-  var cedula  = document.getElementById("m-cedula").value.trim();
-  var plan    = document.getElementById("m-plan").value;
-  var vence   = document.getElementById("m-vence").value;
-  var slug    = document.getElementById("m-slug").value.trim().toLowerCase().replace(/\s+/g,"-").replace(/[^a-z0-9-]/g,"");
+  var nombre =document.getElementById("m-nombre").value.trim();
+  var prefijo=document.getElementById("m-prefijo").value;
+  var email  =document.getElementById("m-email").value.trim();
+  var pass   =document.getElementById("m-pass").value.trim();
+  var esp    =document.getElementById("m-especialidad").value;
+  var cedula =document.getElementById("m-cedula").value.trim();
+  var plan   =document.getElementById("m-plan").value;
+  var vence  =document.getElementById("m-vence").value;
+  var slug   =document.getElementById("m-slug").value.trim().toLowerCase().replace(/\s+/g,"-").replace(/[^a-z0-9-]/g,"");
 
-  if(!nombre){toast("El nombre es requerido","err");return;}
-  if(!email) {toast("El email es requerido","err");return;}
-  if(!pass)  {toast("La contraseña es requerida","err");return;}
+  if(!nombre){ toast("El nombre es requerido","err"); return; }
+  if(!email) { toast("El email es requerido","err"); return; }
+  if(!pass)  { toast("La contraseña es requerida","err"); return; }
 
-  var secret = getAdminSecret();
-  if(!secret){ toast("⚠ Configura el Admin Secret en Seguridad primero","err"); return; }
-
-  var url=getScriptUrl();
-  if(!url){toast("Primero configura la URL del script","err");return;}
-
-  var nombreLegal = prefijo ? prefijo+" "+nombre : nombre;
-  var btn=document.getElementById("btn-crear");
-  btn.disabled=true; btn.textContent="⏳ Creando médico…";
-
-  var data={email:email,pass:pass,nombre_legal:nombreLegal,especialidad:esp,
-            cedula:cedula,plan:plan,vence:vence,slug:slug||""};
+  var nombreLegal=prefijo?prefijo+" "+nombre:nombre;
+  var btn=document.getElementById("btn-crear"); btn.disabled=true; btn.textContent="⏳ Creando médico…";
 
   try{
-    var r = await postApi({ action:"adminCreateTenant", admin_secret:secret, data:JSON.stringify(data) });
-    if(r.ok){
-      mostrarUrls(nombreLegal, r.slug, email, pass);
-      limpiarFormMedico();
-      toast("✅ Médico creado","ok");
-      cargarMedicos();
-    } else {
-      toast("❌ "+(r.msg||"Error al crear"),"err");
-    }
+    var r=await postApi({ action:"adminCreateTenant", data:JSON.stringify({email:email,pass:pass,nombre_legal:nombreLegal,especialidad:esp,cedula:cedula,plan:plan,vence:vence,slug:slug||""}) });
+    if(r.ok){ mostrarUrls(nombreLegal,r.slug,email,pass); limpiarFormMedico(); toast("✅ Médico creado","ok"); cargarMedicos(); }
+    else     { toast("❌ "+(r.msg||"Error al crear"),"err"); }
   }catch(e){ toast("❌ Error: "+e.message,"err"); }
   finally{ btn.disabled=false; btn.textContent="✅ Crear médico y generar URLs"; }
 }
 
-function mostrarUrls(nombre, slug, email, pass){
+function mostrarUrls(nombre,slug,email,pass){
   var urlL=BASE_URL+"/index.html?lic="+slug;
-  var msg="Hola "+nombre+",\n\nTu consultorio en SaludPro ya está listo:\n\n"
-    +"🌐 Tu página de citas (comparte con tus pacientes):\n"+urlL+"\n\n"
-    +"🔐 Acceso al panel (usa el candado 🔐 en tu página):\n"+urlL+"\n\n"
-    +"📧 Email: "+(email||"")+"\n"
-    +"🔑 Contraseña: "+(pass||"")+"\n\n"
-    +"— Equipo SaludPro";
+  var msg="Hola "+nombre+",\n\nTu consultorio en SaludPro ya está listo:\n\n🌐 Tu página de citas:\n"+urlL+"\n\n📧 Email: "+email+"\n🔑 Contraseña: "+pass+"\n\n— Equipo SaludPro";
   document.getElementById("url-landing").textContent=urlL;
   document.getElementById("url-mensaje").textContent=msg;
   document.getElementById("url-result").style.display="block";
   document.getElementById("url-result").scrollIntoView({behavior:"smooth",block:"center"});
 }
-
 function limpiarFormMedico(){
   ["m-nombre","m-email","m-pass","m-cedula","m-slug"].forEach(function(id){ document.getElementById(id).value=""; });
-  document.getElementById("m-prefijo").value="";
-  document.getElementById("m-plan").value="trial";
-  document.getElementById("m-especialidad").value="medico";
+  document.getElementById("m-prefijo").value=""; document.getElementById("m-plan").value="trial"; document.getElementById("m-especialidad").value="medico";
 }
-
-function copiarUrl(id,btn){
-  var texto = document.getElementById(id).textContent;
-  if(navigator.clipboard && window.isSecureContext){
-    navigator.clipboard.writeText(texto).then(function(){
-      btn.textContent="✓ Copiado"; btn.classList.add("copied");
-      setTimeout(function(){ btn.textContent="Copiar"; btn.classList.remove("copied"); },2000);
-    });
-  } else {
-    var ta=document.createElement("textarea");
-    ta.value=texto; ta.style.position="fixed"; ta.style.opacity="0";
-    document.body.appendChild(ta); ta.select();
-    document.execCommand("copy"); document.body.removeChild(ta);
-    btn.textContent="✓ Copiado"; btn.classList.add("copied");
-    setTimeout(function(){ btn.textContent="Copiar"; btn.classList.remove("copied"); },2000);
-  }
-}
-
-function enviarPorWhatsApp(){
-  var msg=document.getElementById("url-mensaje").textContent.trim();
-  if(!msg||msg.length<10){toast("Primero crea un médico","err");return;}
-  window.open("https://wa.me/?text="+encodeURIComponent(msg),"_blank");
-}
-
-function enviarPorEmail(){
-  var msg=document.getElementById("url-mensaje").textContent.trim();
-  if(!msg||msg.length<10){toast("Primero crea un médico","err");return;}
-  window.location.href="mailto:?subject="+encodeURIComponent("Tu consultorio SaludPro está listo")+"&body="+encodeURIComponent(msg);
-}
-
-function compartirWA(url, nombre, email){
-  var msg="👨‍⚕️ *"+nombre+"*\n\nTu consultorio SaludPro está listo:\n\n🌐 Página de citas:\n"+url+(email?"\n\n📧 Email: "+email:"");
-  window.open("https://wa.me/?text="+encodeURIComponent(msg),"_blank");
-}
-
-function compartirMail(url, nombre, email){
-  var body="Hola "+nombre+",\n\nTu consultorio en SaludPro ya está listo:\n\n🌐 Página de citas:\n"+url+(email?"\n\n📧 Email: "+email:"")+"\n\n— Equipo SaludPro";
-  window.location.href="mailto:?subject="+encodeURIComponent("Tu consultorio SaludPro está listo")+"&body="+encodeURIComponent(body);
-}
+function copiarUrl(id,btn){ _copiar(document.getElementById(id).textContent,btn); }
+function enviarPorWhatsApp(){ var msg=document.getElementById("url-mensaje").textContent.trim(); if(!msg||msg.length<10){ toast("Primero crea un médico","err"); return; } window.open("https://wa.me/?text="+encodeURIComponent(msg),"_blank"); }
+function enviarPorEmail()   { var msg=document.getElementById("url-mensaje").textContent.trim(); if(!msg||msg.length<10){ toast("Primero crea un médico","err"); return; } window.location.href="mailto:?subject="+encodeURIComponent("Tu consultorio SaludPro está listo")+"&body="+encodeURIComponent(msg); }
+function compartirWA  (url,nombre,email){ window.open("https://wa.me/?text="+encodeURIComponent("👨‍⚕️ *"+nombre+"*\n\n🌐 "+url+"\n📧 "+email),"_blank"); }
+function compartirMail(url,nombre,email){ window.location.href="mailto:?subject="+encodeURIComponent("Tu consultorio SaludPro está listo")+"&body="+encodeURIComponent("Hola "+nombre+",\n\n🌐 "+url+"\n📧 "+email+"\n\n— SaludPro"); }
 
 // ══════════════════════════════════════════════
-//  PASO 3 — EDITOR — ✅ POST real
+//  PASO 3 — EDITOR
 // ══════════════════════════════════════════════
 async function cargarDatosMedico(slug){
   EDITOR_SLUG=slug; EDITOR_LOGO_B64="";
   if(!slug){ document.getElementById("editor-form").style.display="none"; return; }
-
   var medico=MEDICOS_CACHE.find(function(m){ return m.slug===slug; });
-  var email = medico ? medico.email : "";
-  if(!email){ toast("Primero carga la lista en Paso 4","err"); document.getElementById("editor-form").style.display="none"; return; }
-
+  if(!medico){ toast("Primero carga la lista en Paso 4","err"); document.getElementById("editor-form").style.display="none"; return; }
   toast("🔄 Cargando datos…");
   try{
-    var r = await postApi({ action:"getCfgMedico", email:email, lic:slug });
-    var cfg = r.ok ? (r.cfg||{}) : {};
-
-    document.getElementById("e-nombre-com").value      = cfg.nombre_com || (medico?medico.nombre_legal:"") || "";
-    document.getElementById("e-prefijo").value          = cfg.prefijo    || "";
-    document.getElementById("e-especialidad-txt").value = cfg.especialidad_txt || cfg.especialidad || "";
-    document.getElementById("e-cedula").value           = cfg.cedula     || (medico?medico.cedula:"") || "";
-    document.getElementById("e-telefono").value         = cfg.telefono   || "";
-    document.getElementById("e-whatsapp").value         = cfg.whatsapp   || "";
-    document.getElementById("e-direccion").value        = cfg.direccion  || "";
-    document.getElementById("e-horario").value          = cfg.horario    || "";
-
-    var servicios = cfg.servicios || ["Consulta general","Primera vez","Seguimiento","Urgencia"];
-    if(typeof servicios==="string"){ try{ servicios=JSON.parse(servicios); }catch(e){ servicios=servicios.split(","); } }
-    document.getElementById("e-servicios").value = servicios.join("\n");
-
-    if(cfg.logo && cfg.logo.length > 100){
-      EDITOR_LOGO_B64 = cfg.logo;
-      mostrarLogoPreviewAdmin(cfg.logo);
-    } else {
-      limpiarLogoAdmin();
-    }
-
+    // getCfgMedico usa withAuth → autenticar con email del MÉDICO
+    var fd=new FormData(); fd.append("action","getCfgMedico"); fd.append("email",medico.email); fd.append("lic",slug);
+    var r=await fetch(getScriptUrl(),{method:"POST",body:fd}).then(function(res){ return res.json(); });
+    var cfg=r.ok?(r.cfg||{}):{};
+    document.getElementById("e-nombre-com").value      =cfg.nombre_com||(medico?medico.nombre_legal:"")||"";
+    document.getElementById("e-prefijo").value          =cfg.prefijo||"";
+    document.getElementById("e-especialidad-txt").value =cfg.especialidad_txt||cfg.especialidad||"";
+    document.getElementById("e-cedula").value           =cfg.cedula||(medico?medico.cedula:"")||"";
+    document.getElementById("e-telefono").value         =cfg.telefono||"";
+    document.getElementById("e-whatsapp").value         =cfg.whatsapp||"";
+    document.getElementById("e-direccion").value        =cfg.direccion||"";
+    document.getElementById("e-horario").value          =cfg.horario||"";
+    var svc=cfg.servicios||["Consulta general","Primera vez","Seguimiento","Urgencia"];
+    if(typeof svc==="string"){ try{ svc=JSON.parse(svc); }catch(e){ svc=svc.split(","); } }
+    document.getElementById("e-servicios").value=svc.join("\n");
+    if(cfg.logo&&cfg.logo.length>100){ EDITOR_LOGO_B64=cfg.logo; mostrarLogoPreviewAdmin(cfg.logo); } else { limpiarLogoAdmin(); }
     document.getElementById("editor-form").style.display="block";
-    actualizarPreview();
-    toast("✅ Datos cargados","ok");
+    actualizarPreview(); toast("✅ Datos cargados","ok");
   }catch(e){ toast("❌ Error: "+e.message,"err"); }
 }
 
 function onLogoChangeAdmin(event){
-  var file = event.target.files[0];
-  if(!file) return;
-  if(!file.type.startsWith("image/")){toast("Solo imágenes","err");return;}
-  if(file.size > 2*1024*1024){toast("Máx. 2 MB","err");return;}
-  var reader = new FileReader();
-  reader.onload = function(e){
-    comprimirImagen(e.target.result, 200, 200, function(comprimida){
-      EDITOR_LOGO_B64 = comprimida;
-      mostrarLogoPreviewAdmin(comprimida);
-      actualizarPreview();
-      toast("✅ Logo listo — guarda los cambios","ok");
-    });
-  };
-  reader.readAsDataURL(file);
+  var file=event.target.files[0]; if(!file) return;
+  if(!file.type.startsWith("image/")){ toast("Solo imágenes","err"); return; }
+  if(file.size>2097152){ toast("Máx. 2 MB","err"); return; }
+  var reader=new FileReader(); reader.onload=function(e){ comprimirImagen(e.target.result,200,200,function(c){ EDITOR_LOGO_B64=c; mostrarLogoPreviewAdmin(c); actualizarPreview(); toast("✅ Logo listo — guarda los cambios","ok"); }); }; reader.readAsDataURL(file);
 }
-
-function comprimirImagen(src, maxW, maxH, callback){
-  var img = new Image();
-  img.onload = function(){
-    var canvas = document.createElement("canvas");
-    var ratio  = Math.min(maxW/img.width, maxH/img.height, 1);
-    canvas.width  = Math.round(img.width  * ratio);
-    canvas.height = Math.round(img.height * ratio);
-    canvas.getContext("2d").drawImage(img, 0, 0, canvas.width, canvas.height);
-    callback(canvas.toDataURL("image/jpeg", 0.82));
-  };
-  img.onerror = function(){ toast("No se pudo procesar la imagen","err"); };
-  img.src = src;
+function comprimirImagen(src,maxW,maxH,callback){
+  var img=new Image(); img.onload=function(){ var c=document.createElement("canvas"); var r=Math.min(maxW/img.width,maxH/img.height,1); c.width=Math.round(img.width*r); c.height=Math.round(img.height*r); c.getContext("2d").drawImage(img,0,0,c.width,c.height); callback(c.toDataURL("image/jpeg",.82)); }; img.onerror=function(){ toast("No se pudo procesar la imagen","err"); }; img.src=src;
 }
-
 function mostrarLogoPreviewAdmin(src){
-  var img  = document.getElementById("e-logo-preview");
-  var hint = document.querySelector("#logo-upload-area-admin .logo-upload-hint");
-  var btn  = document.getElementById("btn-rm-logo-admin");
-  img.src  = src; img.style.display = "block";
-  if(hint) hint.style.display = "none";
-  if(btn)  btn.style.display  = "inline-block";
+  var img=document.getElementById("e-logo-preview"),hint=document.querySelector("#logo-upload-area-admin .logo-upload-hint"),btn=document.getElementById("btn-rm-logo-admin");
+  img.src=src; img.style.display="block"; if(hint) hint.style.display="none"; if(btn) btn.style.display="inline-block";
 }
-
-function eliminarLogoAdmin(){ EDITOR_LOGO_B64 = ""; limpiarLogoAdmin(); actualizarPreview(); toast("Logo eliminado"); }
-
+function eliminarLogoAdmin(){ EDITOR_LOGO_B64=""; limpiarLogoAdmin(); actualizarPreview(); toast("Logo eliminado"); }
 function limpiarLogoAdmin(){
-  var img  = document.getElementById("e-logo-preview");
-  var hint = document.querySelector("#logo-upload-area-admin .logo-upload-hint");
-  var btn  = document.getElementById("btn-rm-logo-admin");
-  var inp  = document.getElementById("e-logo-file");
-  if(img)  { img.src=""; img.style.display="none"; }
-  if(hint) hint.style.display = "block";
-  if(btn)  btn.style.display  = "none";
-  if(inp)  inp.value = "";
+  var img=document.getElementById("e-logo-preview"),hint=document.querySelector("#logo-upload-area-admin .logo-upload-hint"),btn=document.getElementById("btn-rm-logo-admin"),inp=document.getElementById("e-logo-file");
+  if(img){ img.src=""; img.style.display="none"; } if(hint) hint.style.display="block"; if(btn) btn.style.display="none"; if(inp) inp.value="";
 }
-
 function actualizarPreview(){
-  var nombre  = document.getElementById("e-nombre-com").value.trim() || "—";
-  var prefijo = document.getElementById("e-prefijo").value;
-  var esp     = document.getElementById("e-especialidad-txt").value.trim() || "—";
-  var cedula  = document.getElementById("e-cedula").value.trim();
-  var tel     = document.getElementById("e-telefono").value.trim();
-  var dir     = document.getElementById("e-direccion").value.trim();
-  var hor     = document.getElementById("e-horario").value.trim();
-
-  var nombreDisplay = prefijo ? prefijo+" "+nombre : nombre;
-  var partes = nombre.replace(/^(Dr|Dra|Lic|Mtro|Mtra|Ing|Psic)\.\s*/i,"").split(" ");
-  var iniciales = ((partes[0]||"")[0]||"") + ((partes[1]||"")[0]||"");
-
-  var prevAvatar = document.getElementById("prev-avatar");
-  if(EDITOR_LOGO_B64){
-    prevAvatar.innerHTML='<img src="'+EDITOR_LOGO_B64+'" style="width:100%;height:100%;object-fit:cover;border-radius:50%"/>';
-  } else {
-    prevAvatar.innerHTML="";
-    prevAvatar.textContent = iniciales.toUpperCase() || "?";
-  }
-
-  document.getElementById("prev-nombre").textContent = nombreDisplay;
-  document.getElementById("prev-esp").textContent    = esp;
-  document.getElementById("prev-cedula").textContent = cedula ? "Cédula: "+cedula : "";
-
-  var cards = [];
-  if(dir) cards.push({l:"Dirección",v:dir});
-  if(tel) cards.push({l:"Teléfono",v:tel});
-  if(hor) cards.push({l:"Horario",v:hor});
-
-  document.getElementById("prev-cards").innerHTML = cards.map(function(c){
-    return '<div class="preview-card"><div class="preview-card-lbl">'+c.l+'</div><div class="preview-card-val">'+esc(c.v)+'</div></div>';
-  }).join("");
+  var nombre=document.getElementById("e-nombre-com").value.trim()||"—",prefijo=document.getElementById("e-prefijo").value;
+  var esp=document.getElementById("e-especialidad-txt").value.trim()||"—",cedula=document.getElementById("e-cedula").value.trim();
+  var tel=document.getElementById("e-telefono").value.trim(),dir=document.getElementById("e-direccion").value.trim(),hor=document.getElementById("e-horario").value.trim();
+  var nd=prefijo?prefijo+" "+nombre:nombre;
+  var p=nombre.replace(/^(Dr|Dra|Lic|Mtro|Mtra|Ing|Psic)\.\s*/i,"").split(" ");
+  var ini=((p[0]||"")[0]||"")+((p[1]||"")[0]||"");
+  var pa=document.getElementById("prev-avatar");
+  if(EDITOR_LOGO_B64){ pa.innerHTML='<img src="'+EDITOR_LOGO_B64+'" style="width:100%;height:100%;object-fit:cover;border-radius:50%"/>'; } else { pa.innerHTML=""; pa.textContent=ini.toUpperCase()||"?"; }
+  document.getElementById("prev-nombre").textContent=nd;
+  document.getElementById("prev-esp").textContent=esp;
+  document.getElementById("prev-cedula").textContent=cedula?"Cédula: "+cedula:"";
+  var cards=[]; if(dir) cards.push({l:"Dirección",v:dir}); if(tel) cards.push({l:"Teléfono",v:tel}); if(hor) cards.push({l:"Horario",v:hor});
+  document.getElementById("prev-cards").innerHTML=cards.map(function(c){ return '<div class="preview-card"><div class="preview-card-lbl">'+c.l+'</div><div class="preview-card-val">'+esc(c.v)+'</div></div>'; }).join("");
 }
-
 async function guardarPantallaPublica(){
   if(!EDITOR_SLUG){ toast("Selecciona un médico","err"); return; }
-  var medico = MEDICOS_CACHE.find(function(m){ return m.slug===EDITOR_SLUG; });
+  var medico=MEDICOS_CACHE.find(function(m){ return m.slug===EDITOR_SLUG; });
   if(!medico){ toast("Médico no encontrado. Recarga la lista.","err"); return; }
-
-  var serviciosRaw = document.getElementById("e-servicios").value.trim().split("\n").map(function(s){ return s.trim(); }).filter(Boolean);
-  var cfg = {
-    nombre_com:       document.getElementById("e-nombre-com").value.trim(),
-    prefijo:          document.getElementById("e-prefijo").value,
-    especialidad_txt: document.getElementById("e-especialidad-txt").value.trim(),
-    cedula:           document.getElementById("e-cedula").value.trim(),
-    telefono:         document.getElementById("e-telefono").value.trim(),
-    whatsapp:         document.getElementById("e-whatsapp").value.trim(),
-    direccion:        document.getElementById("e-direccion").value.trim(),
-    horario:          document.getElementById("e-horario").value.trim(),
-    servicios:        JSON.stringify(serviciosRaw),
-    logo:             EDITOR_LOGO_B64
-  };
-
-  var btn=document.querySelector("#editor-form .btn-full");
-  if(btn){ btn.disabled=true; btn.textContent="Guardando…"; }
+  var svc=document.getElementById("e-servicios").value.trim().split("\n").map(function(s){ return s.trim(); }).filter(Boolean);
+  var cfg={nombre_com:document.getElementById("e-nombre-com").value.trim(),prefijo:document.getElementById("e-prefijo").value,especialidad_txt:document.getElementById("e-especialidad-txt").value.trim(),cedula:document.getElementById("e-cedula").value.trim(),telefono:document.getElementById("e-telefono").value.trim(),whatsapp:document.getElementById("e-whatsapp").value.trim(),direccion:document.getElementById("e-direccion").value.trim(),horario:document.getElementById("e-horario").value.trim(),servicios:JSON.stringify(svc),logo:EDITOR_LOGO_B64};
+  var btn=document.querySelector("#editor-form .btn-full"); if(btn){ btn.disabled=true; btn.textContent="Guardando…"; }
   try{
-    var r = await postApi({ action:"saveCfgMedico", email:medico.email, lic:EDITOR_SLUG, data:JSON.stringify({cfg:cfg}) });
-    if(r.ok){ toast("✅ Pantalla pública guardada","ok"); }
-    else     { toast("❌ "+(r.msg||"Error al guardar"),"err"); }
+    // saveCfgMedico usa withAuth → autenticar con email del MÉDICO
+    var fd=new FormData(); fd.append("action","saveCfgMedico"); fd.append("email",medico.email); fd.append("lic",EDITOR_SLUG); fd.append("data",JSON.stringify({cfg:cfg}));
+    var r=await fetch(getScriptUrl(),{method:"POST",body:fd}).then(function(res){ return res.json(); });
+    if(r.ok){ toast("✅ Pantalla pública guardada","ok"); } else { toast("❌ "+(r.msg||"Error al guardar"),"err"); }
   }catch(e){ toast("❌ Error: "+e.message,"err"); }
   finally{ if(btn){ btn.disabled=false; btn.textContent="💾 Guardar cambios"; } }
 }
-
-function abrirLanding(){
-  if(!EDITOR_SLUG){ toast("Selecciona un médico","err"); return; }
-  window.open(BASE_URL+"/index.html?lic="+EDITOR_SLUG,"_blank");
-}
+function abrirLanding(){ if(!EDITOR_SLUG){ toast("Selecciona un médico","err"); return; } window.open(BASE_URL+"/index.html?lic="+EDITOR_SLUG,"_blank"); }
 
 // ══════════════════════════════════════════════
-//  PASO 4 — LISTA — ✅ POST real
+//  PASO 4 — LISTA
 // ══════════════════════════════════════════════
 async function cargarMedicos(){
-  var url=getScriptUrl();
-  if(!url){ toast("Configura la URL del script","err"); return; }
-  var secret = getAdminSecret();
-  if(!secret){ toast("⚠ Configura el Admin Secret en Seguridad","err"); return; }
-
   var el=document.getElementById("lista-medicos");
   el.innerHTML='<div style="color:var(--txt3);font-size:13px;text-align:center;padding:20px">🔄 Cargando...</div>';
-
   try{
-    var r = await postApi({ action:"adminListTenants", admin_secret:secret });
+    var r=await postApi({ action:"adminListTenants" });
     if(!r.ok){ el.innerHTML='<div style="color:#FCA5A5;font-size:13px;padding:10px">❌ '+(r.msg||"Error")+'</div>'; return; }
-    if(!r.data||r.data.length===0){
-      el.innerHTML='<div style="color:var(--txt3);font-size:13px;text-align:center;padding:20px">Sin médicos registrados aún</div>';
-      return;
-    }
-
-    MEDICOS_CACHE = r.data;
-
-    var sel=document.getElementById("editor-slug");
-    sel.innerHTML='<option value="">— Selecciona un médico —</option>';
-    r.data.forEach(function(m){
-      var op=document.createElement("option");
-      op.value=m.slug; op.textContent=m.nombre_legal+" ("+m.slug+")";
-      sel.appendChild(op);
-    });
-
+    if(!r.data||r.data.length===0){ el.innerHTML='<div style="color:var(--txt3);font-size:13px;text-align:center;padding:20px">Sin médicos registrados aún</div>'; return; }
+    MEDICOS_CACHE=r.data;
+    var sel=document.getElementById("editor-slug"); sel.innerHTML='<option value="">— Selecciona un médico —</option>';
+    r.data.forEach(function(m){ var op=document.createElement("option"); op.value=m.slug; op.textContent=m.nombre_legal+" ("+m.slug+")"; sel.appendChild(op); });
     el.innerHTML=r.data.map(function(m){
       var urlL=BASE_URL+"/index.html?lic="+m.slug;
       var badge=m.activo?'<span class="badge-ok">● Activo</span>':'<span class="badge-off">● Inactivo</span>';
-      return '<div class="medico-card">'
-        +'<div class="medico-nombre">'+esc(m.nombre_legal)+badge+'</div>'
+      return '<div class="medico-card"><div class="medico-nombre">'+esc(m.nombre_legal)+badge+'</div>'
         +'<div class="medico-email">'+esc(m.email)+' · '+esc(m.plan)+(m.vence?' · Vence: '+m.vence:'')+'</div>'
-        +'<div class="medico-urls">'
-        +'<div class="medico-url-row"><span class="medico-url-tag">🌐</span><span class="medico-url-val">'+esc(urlL)+'</span>'
-        +'<button class="btn-copy" style="font-size:10px;padding:4px 8px" onclick="copiarTexto(\''+esc(urlL)+'\',this)">Copiar</button></div>'
+        +'<div class="medico-urls"><div class="medico-url-row"><span class="medico-url-tag">🌐</span><span class="medico-url-val">'+esc(urlL)+'</span>'
+        +'<button class="btn-copy" style="font-size:10px;padding:4px 8px" onclick="_copiarTexto(\''+esc(urlL)+'\',this)">Copiar</button></div>'
         +'<div class="medico-url-row" style="margin-top:4px">'
         +'<button class="btn-copy" style="font-size:10px;padding:4px 8px;background:#dcfce7;color:#166534;border-color:#bbf7d0" onclick="compartirWA(\''+esc(urlL)+'\',\''+esc(m.nombre_legal)+'\',\''+esc(m.email)+'\')">💬 WA</button>'
         +'<button class="btn-copy" style="font-size:10px;padding:4px 8px;background:#e0f2fe;color:#075985;border-color:#bae6fd;margin-left:4px" onclick="compartirMail(\''+esc(urlL)+'\',\''+esc(m.nombre_legal)+'\',\''+esc(m.email)+'\')">✉️ Mail</button>'
         +'</div></div></div>';
     }).join("");
-
   }catch(e){ el.innerHTML='<div style="color:#FCA5A5;font-size:13px;padding:10px">❌ Error: '+e.message+'</div>'; }
 }
 
-function copiarTexto(texto,btn){
-  if(navigator.clipboard && window.isSecureContext){
-    navigator.clipboard.writeText(texto).then(function(){
-      btn.textContent="✓"; btn.classList.add("copied");
-      setTimeout(function(){ btn.textContent="Copiar"; btn.classList.remove("copied"); },2000);
-    });
-  } else {
-    var ta=document.createElement("textarea");
-    ta.value=texto; ta.style.position="fixed"; ta.style.opacity="0";
-    document.body.appendChild(ta); ta.select();
-    document.execCommand("copy"); document.body.removeChild(ta);
-    btn.textContent="✓"; btn.classList.add("copied");
-    setTimeout(function(){ btn.textContent="Copiar"; btn.classList.remove("copied"); },2000);
-  }
-}
+function _copiar(texto,btn){ if(navigator.clipboard&&window.isSecureContext){ navigator.clipboard.writeText(texto).then(function(){ btn.textContent="✓ Copiado"; btn.classList.add("copied"); setTimeout(function(){ btn.textContent="Copiar"; btn.classList.remove("copied"); },2000); }); } else { var ta=document.createElement("textarea"); ta.value=texto; ta.style.position="fixed"; ta.style.opacity="0"; document.body.appendChild(ta); ta.select(); document.execCommand("copy"); document.body.removeChild(ta); btn.textContent="✓ Copiado"; btn.classList.add("copied"); setTimeout(function(){ btn.textContent="Copiar"; btn.classList.remove("copied"); },2000); } }
+function _copiarTexto(texto,btn){ _copiar(texto,btn); }
 
 // ══════════════════════════════════════════════
-//  SEGURIDAD — ✅ Mínimo 8 caracteres
+//  CONFIGURACIÓN / TEMA
 // ══════════════════════════════════════════════
-function saveAdminPass(){
-  var p=document.getElementById("sec-admin-pass").value;
-  if(!p||p.length<8){ toast("Mínimo 8 caracteres","err"); return; }
-  LICENSE.adminPass=p; lsSet("sp_license",LICENSE);
-  document.getElementById("sec-admin-pass").value="";
-  toast("✅ Contraseña guardada","ok");
-}
-
 function resetAllConfig(){
-  if(!confirm("⚠️ ¿Borrar TODA la configuración local?\n\nNo afecta Google Sheets.")) return;
-  ["sp_license","sp_cfg","sp_user","sp_url","sp_admin_session","sp_admin_secret"].forEach(function(k){ localStorage.removeItem(k); });
+  if(!confirm("⚠️ ¿Borrar configuración local y cerrar sesión?")) return;
+  ["sp_license","sp_cfg","sp_user","sp_url","sp_admin_session"].forEach(function(k){ localStorage.removeItem(k); });
   toast("💥 Reset completo","ok");
-  setTimeout(function(){ window.location.reload(); },1500);
+  setTimeout(function(){ location.reload(); },1500);
 }
-
-function applyTheme(){
-  var cfg=lsGet("sp_cfg")||{};
-  document.documentElement.setAttribute("data-theme",(cfg.tema&&cfg.tema.dark===false)?"light":"dark");
-}
-
-function toggleTheme(){
-  var cur=document.documentElement.getAttribute("data-theme");
-  var n=cur==="dark"?"light":"dark";
-  document.documentElement.setAttribute("data-theme",n);
-  var cfg=lsGet("sp_cfg")||{}; if(!cfg.tema) cfg.tema={};
-  cfg.tema.dark=n==="dark"; lsSet("sp_cfg",cfg);
-}
-
-function esc(s){
-  return String(s||"")
-    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;").replace(/'/g,"&#x27;");
-}
-
-var _tt;
-function toast(msg,type){
-  var t=document.getElementById("toast");
-  t.textContent=msg; t.className="on "+(type||"");
-  clearTimeout(_tt); _tt=setTimeout(function(){ t.classList.remove("on"); },3200);
-}
+function applyTheme(){ var cfg=lsGet("sp_cfg")||{}; document.documentElement.setAttribute("data-theme",(cfg.tema&&cfg.tema.dark===false)?"light":"dark"); }
+function toggleTheme(){ var cur=document.documentElement.getAttribute("data-theme"),n=cur==="dark"?"light":"dark"; document.documentElement.setAttribute("data-theme",n); var cfg=lsGet("sp_cfg")||{}; if(!cfg.tema) cfg.tema={}; cfg.tema.dark=n==="dark"; lsSet("sp_cfg",cfg); }
+function esc(s){ return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#x27;"); }
+var _tt; function toast(msg,type){ var t=document.getElementById("toast"); t.textContent=msg; t.className="on "+(type||""); clearTimeout(_tt); _tt=setTimeout(function(){ t.classList.remove("on"); },3200); }
 </script>
 </body>
 </html>
