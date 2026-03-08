@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
-<title>Admin — SaludPro</title>
+<title>Admin — Consultas Saudables pro</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
@@ -432,7 +432,7 @@ input,select,textarea{font-family:var(--ff);outline:none}
       </div>
     </div>
 
-    <div style="text-align:center;padding:20px 0 32px;color:var(--txt3);font-size:12px">SaludPro Admin Panel · v4.0</div>
+    <div style="text-align:center;padding:20px 0 32px;color:var(--txt3);font-size:12px">Consultas Saudables pro Admin Panel · v4.0</div>
   </div>
 </div>
 
@@ -571,7 +571,7 @@ async function testConnection(){
   el.style.display="block"; el.textContent="🔄 Probando conexión…"; el.style.color="var(--txt2)";
   try{
     var r=await(await fetch(url+"?action=ping")).json();
-    if(r.ok){ el.textContent="✅ Conectado · SaludPro v"+(r.version||"?")+" · "+(r.ts||""); el.style.color="#4ADE80"; saveScriptUrl(url); toast("✅ Conexión exitosa","ok"); }
+    if(r.ok){ el.textContent="✅ Conectado · Consultas Saudables pro v"+(r.version||"?")+" · "+(r.ts||""); el.style.color="#4ADE80"; saveScriptUrl(url); toast("✅ Conexión exitosa","ok"); }
     else     { el.textContent="❌ "+(r.msg||"Error"); el.style.color="#FCA5A5"; toast("❌ Error en script","err"); }
   }catch(e){ el.textContent="❌ Sin conexión: "+e.message; el.style.color="#FCA5A5"; toast("❌ Sin conexión","err"); }
 }
@@ -607,7 +607,7 @@ async function crearMedico(){
 
 function mostrarUrls(nombre,slug,email,pass){
   var urlL=BASE_URL+"/index.html?lic="+slug;
-  var msg="Hola "+nombre+",\n\nTu consultorio en SaludPro ya está listo:\n\n🌐 Tu página de citas:\n"+urlL+"\n\n📧 Email: "+email+"\n🔑 Contraseña: "+pass+"\n\n— Equipo SaludPro";
+  var msg="Hola "+nombre+",\n\nTu consultorio en Consultas Saudables pro ya está listo:\n\n🌐 Tu página de citas:\n"+urlL+"\n\n📧 Email: "+email+"\n🔑 Contraseña: "+pass+"\n\n— Equipo Consultas Saudables pro";
   document.getElementById("url-landing").textContent=urlL;
   document.getElementById("url-mensaje").textContent=msg;
   document.getElementById("url-result").style.display="block";
@@ -619,9 +619,9 @@ function limpiarFormMedico(){
 }
 function copiarUrl(id,btn){ _copiar(document.getElementById(id).textContent,btn); }
 function enviarPorWhatsApp(){ var msg=document.getElementById("url-mensaje").textContent.trim(); if(!msg||msg.length<10){ toast("Primero crea un médico","err"); return; } window.open("https://wa.me/?text="+encodeURIComponent(msg),"_blank"); }
-function enviarPorEmail()   { var msg=document.getElementById("url-mensaje").textContent.trim(); if(!msg||msg.length<10){ toast("Primero crea un médico","err"); return; } window.location.href="mailto:?subject="+encodeURIComponent("Tu consultorio SaludPro está listo")+"&body="+encodeURIComponent(msg); }
+function enviarPorEmail()   { var msg=document.getElementById("url-mensaje").textContent.trim(); if(!msg||msg.length<10){ toast("Primero crea un médico","err"); return; } window.location.href="mailto:?subject="+encodeURIComponent("Tu consultorio Consultas Saudables pro está listo")+"&body="+encodeURIComponent(msg); }
 function compartirWA  (url,nombre,email){ window.open("https://wa.me/?text="+encodeURIComponent("👨‍⚕️ *"+nombre+"*\n\n🌐 "+url+"\n📧 "+email),"_blank"); }
-function compartirMail(url,nombre,email){ window.location.href="mailto:?subject="+encodeURIComponent("Tu consultorio SaludPro está listo")+"&body="+encodeURIComponent("Hola "+nombre+",\n\n🌐 "+url+"\n📧 "+email+"\n\n— SaludPro"); }
+function compartirMail(url,nombre,email){ window.location.href="mailto:?subject="+encodeURIComponent("Tu consultorio Consultas Saudables pro está listo")+"&body="+encodeURIComponent("Hola "+nombre+",\n\n🌐 "+url+"\n📧 "+email+"\n\n— Consultas Saudables pro"); }
 
 // ══════════════════════════════════════════════
 //  PASO 3 — EDITOR
