@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
-/* ── TOKENS (idénticos al admin principal) ── */
+/* ════ TOKENS ════ */
 :root{
   --p:#1A7FC1;--p2:#38BDF8;
   --bg:#080D14;--bg2:#0D1520;
@@ -19,8 +19,8 @@
   --txt:#E8F0F8;--txt2:#7A9BB8;--txt3:#4A6A85;
   --ok:#16A34A;--warn:#D97706;--err:#DC2626;
   --ff:'DM Sans',sans-serif;--fm:'DM Mono',monospace;
-  --sp-xs:6px;--sp-sm:10px;--sp-md:14px;--sp-lg:20px;--sp-xl:28px;
-  --fs-xs:11px;--fs-sm:13px;--fs-base:15px;
+  --sp-xs:6px;--sp-sm:10px;--sp-md:14px;--sp-lg:20px;
+  --fs-xs:11px;--fs-sm:13px;--fs-base:15px;--fs-md:17px;
   --tap:44px;--r:12px;--rs:8px;
 }
 [data-theme=light]{
@@ -29,72 +29,31 @@
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{height:100%;-webkit-text-size-adjust:100%;text-size-adjust:100%}
-body{
-  min-height:100%;font-family:var(--ff);font-size:var(--fs-base);
-  background:var(--bg);color:var(--txt);overflow-x:hidden;max-width:100vw;
-  padding-bottom:env(safe-area-inset-bottom);
-}
+body{min-height:100%;font-family:var(--ff);font-size:var(--fs-base);background:var(--bg);color:var(--txt);overflow-x:hidden;max-width:100vw;padding-bottom:env(safe-area-inset-bottom)}
 button{font-family:var(--ff);cursor:pointer;border:none;outline:none;-webkit-tap-highlight-color:transparent}
 input,select,textarea{font-family:var(--ff);outline:none;-webkit-tap-highlight-color:transparent}
 
-/* ── TOPBAR ── */
-.topbar{
-  position:sticky;top:0;z-index:50;
-  height:54px;
-  padding-top:env(safe-area-inset-top,0px);
-  background:var(--card);border-bottom:1px solid var(--border);
-  display:flex;align-items:center;
-  padding-left:max(var(--sp-md),env(safe-area-inset-left,0px));
-  padding-right:max(var(--sp-sm),env(safe-area-inset-right,0px));
-  gap:var(--sp-sm);
-}
-@supports(padding-top:env(safe-area-inset-top)){
-  .topbar{height:calc(54px + env(safe-area-inset-top,0px))}
-}
-.tb-back{
-  width:var(--tap);height:var(--tap);border-radius:var(--rs);
-  background:transparent;display:flex;align-items:center;justify-content:center;
-  color:var(--p2);font-size:20px;transition:.15s;flex-shrink:0;
-}
-.tb-back:hover{background:var(--card2)}
-.tb-back:active{background:var(--border)}
+/* ════ TOPBAR ════ */
+.topbar{position:sticky;top:0;z-index:50;height:54px;padding-top:env(safe-area-inset-top,0px);background:var(--card);border-bottom:1px solid var(--border);display:flex;align-items:center;padding-left:max(var(--sp-md),env(safe-area-inset-left,0px));padding-right:max(var(--sp-sm),env(safe-area-inset-right,0px));gap:var(--sp-sm)}
+@supports(padding-top:env(safe-area-inset-top)){.topbar{height:calc(54px + env(safe-area-inset-top,0px))}}
+.tb-back{width:var(--tap);height:var(--tap);border-radius:var(--rs);background:transparent;display:flex;align-items:center;justify-content:center;color:var(--p2);font-size:22px;font-weight:300;transition:.15s;flex-shrink:0}
+.tb-back:hover{background:var(--card2)}.tb-back:active{background:var(--border)}
 .tb-title{font-size:clamp(13px,4vw,15px);font-weight:700;color:var(--txt);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tb-right{margin-left:auto;display:flex;gap:4px;flex-shrink:0}
-.ib{
-  width:var(--tap);height:var(--tap);border-radius:var(--rs);
-  background:transparent;display:flex;align-items:center;justify-content:center;
-  color:var(--txt2);font-size:18px;transition:.15s;
-}
-.ib:hover{background:var(--card2);color:var(--txt)}
-.ib:active{background:var(--border)}
+.ib{width:var(--tap);height:var(--tap);border-radius:var(--rs);background:transparent;display:flex;align-items:center;justify-content:center;color:var(--txt2);font-size:18px;transition:.15s}
+.ib:hover{background:var(--card2);color:var(--txt)}.ib:active{background:var(--border)}
 
-/* ── TABS ── */
-.tabs{
-  display:flex;background:var(--card);border-bottom:1px solid var(--border);
-  overflow-x:auto;-webkit-overflow-scrolling:touch;
-  scrollbar-width:none;position:sticky;top:calc(54px + env(safe-area-inset-top,0px));z-index:40;
-}
+/* ════ TABS ════ */
+.tabs{display:flex;background:var(--card);border-bottom:1px solid var(--border);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;position:sticky;top:calc(54px + env(safe-area-inset-top,0px));z-index:40}
 .tabs::-webkit-scrollbar{display:none}
-.tab{
-  padding:12px 16px;font-size:var(--fs-sm);font-weight:600;color:var(--txt2);
-  white-space:nowrap;border:none;background:transparent;cursor:pointer;
-  border-bottom:2px solid transparent;transition:.15s;min-height:44px;
-  -webkit-tap-highlight-color:transparent;flex-shrink:0;
-}
-.tab.on{color:var(--p2);border-bottom-color:var(--p2)}
-.tab:active{background:var(--card2)}
+.tab{padding:12px 18px;font-size:var(--fs-sm);font-weight:600;color:var(--txt2);white-space:nowrap;border:none;background:transparent;cursor:pointer;border-bottom:2px solid transparent;transition:.15s;min-height:44px;-webkit-tap-highlight-color:transparent;flex-shrink:0}
+.tab.on{color:var(--p2);border-bottom-color:var(--p2)}.tab:active{background:var(--card2)}
 
-/* ── CONTENIDO ── */
-.content{
-  flex:1;padding:var(--sp-md);
-  padding-left:max(var(--sp-md),env(safe-area-inset-left,0px));
-  padding-right:max(var(--sp-md),env(safe-area-inset-right,0px));
-  max-width:660px;margin:0 auto;width:100%;
-}
-.tab-pane{display:none}
-.tab-pane.on{display:block}
+/* ════ LAYOUT ════ */
+.content{padding:var(--sp-md);padding-left:max(var(--sp-md),env(safe-area-inset-left,0px));padding-right:max(var(--sp-md),env(safe-area-inset-right,0px));max-width:660px;margin:0 auto;width:100%}
+.tab-pane{display:none}.tab-pane.on{display:block}
 
-/* ── SECCIONES (idéntico admin) ── */
+/* ════ SECCIÓN ════ */
 .sec{background:var(--card);border:1px solid var(--border);border-radius:var(--r);margin-bottom:var(--sp-md);overflow:hidden}
 .sec-hdr{padding:var(--sp-sm) var(--sp-md);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:var(--sp-sm)}
 .sec-icon{font-size:18px;flex-shrink:0}
@@ -102,331 +61,357 @@ input,select,textarea{font-family:var(--ff);outline:none;-webkit-tap-highlight-c
 .sec-sub{font-size:var(--fs-xs);color:var(--txt2);margin-top:2px}
 .sec-body{padding:var(--sp-md)}
 
-/* ── CAMPOS (idéntico admin) ── */
-.ifield{margin-bottom:12px}
-.ifield label{display:block;font-size:10px;font-weight:700;color:var(--txt3);letter-spacing:.5px;text-transform:uppercase;margin-bottom:5px}
-.ifield input,.ifield select,.ifield textarea{
-  width:100%;background:var(--bg2);border:1px solid var(--border);color:var(--txt);
-  padding:11px 13px;border-radius:var(--rs);font-size:16px;transition:.2s;
-  min-height:var(--tap);appearance:none;-webkit-appearance:none;
-}
-.ifield select{
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237A9BB8' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;background-position:right 13px center;padding-right:36px;
-}
+/* ════ CAMPOS ════ */
+.ifield{margin-bottom:10px}
+.ifield label{display:block;font-size:10px;font-weight:700;color:var(--txt3);letter-spacing:.5px;text-transform:uppercase;margin-bottom:4px}
+.ifield input,.ifield select,.ifield textarea{width:100%;background:var(--bg2);border:1px solid var(--border);color:var(--txt);padding:10px 12px;border-radius:var(--rs);font-size:16px;transition:.2s;min-height:var(--tap);appearance:none;-webkit-appearance:none}
+.ifield select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237A9BB8' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:34px}
 .ifield input:focus,.ifield select:focus,.ifield textarea:focus{border-color:var(--p);box-shadow:0 0 0 3px rgba(26,127,193,.15)}
-.ifield textarea{resize:vertical;min-height:80px;font-size:15px}
-.ifield .hint{font-size:var(--fs-xs);color:var(--txt3);margin-top:5px;line-height:1.5}
+.ifield textarea{resize:vertical;min-height:72px;font-size:15px}
+.ifield .hint{font-size:var(--fs-xs);color:var(--txt3);margin-top:4px;line-height:1.5}
 .irow{display:grid;grid-template-columns:1fr;gap:0}
 @media(min-width:400px){.irow{grid-template-columns:1fr 1fr;gap:10px}}
 
-/* ── BOTONES (idéntico admin) ── */
-.btn-sm{
-  padding:10px 16px;border-radius:var(--rs);font-size:var(--fs-sm);font-weight:600;
-  background:var(--p);color:#fff;border:none;cursor:pointer;transition:.15s;
-  min-height:var(--tap);display:inline-flex;align-items:center;gap:6px;
-  -webkit-tap-highlight-color:transparent;
-}
-.btn-sm:hover{background:#1570A8}
-.btn-sm:active{transform:scale(.97)}
-.btn-sm.sec{background:var(--card2);color:var(--txt2);border:1px solid var(--border)}
-.btn-sm.sec:hover{background:var(--border)}
+/* ════ BOTONES ════ */
+.btn-sm{padding:9px 15px;border-radius:var(--rs);font-size:var(--fs-sm);font-weight:600;background:var(--p);color:#fff;border:none;cursor:pointer;transition:.15s;min-height:var(--tap);display:inline-flex;align-items:center;gap:6px;-webkit-tap-highlight-color:transparent}
+.btn-sm:hover{background:#1570A8}.btn-sm:active{transform:scale(.97)}
+.btn-sm.sec{background:var(--card2);color:var(--txt2);border:1px solid var(--border)}.btn-sm.sec:hover{background:var(--border)}
 .btn-sm.danger{background:rgba(220,38,38,.1);color:#FCA5A5;border:1px solid rgba(220,38,38,.3)}
 .btn-sm.ok{background:rgba(22,163,74,.12);color:#4ADE80;border:1px solid rgba(22,163,74,.3)}
-.btn-sm.warn{background:rgba(217,119,6,.12);color:#FCD34D;border:1px solid rgba(217,119,6,.3)}
-.btn-full{
-  width:100%;padding:13px;border-radius:var(--rs);font-size:var(--fs-base);font-weight:700;
-  background:var(--p);color:#fff;border:none;cursor:pointer;transition:.2s;margin-top:4px;
-  min-height:var(--tap);-webkit-tap-highlight-color:transparent;
-}
-.btn-full:hover{background:#1570A8}
-.btn-full:active{background:#0f5a8a;transform:scale(.98)}
-.btn-full:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.btn-full{width:100%;padding:13px;border-radius:var(--rs);font-size:var(--fs-base);font-weight:700;background:var(--p);color:#fff;border:none;cursor:pointer;transition:.2s;margin-top:6px;min-height:var(--tap);-webkit-tap-highlight-color:transparent}
+.btn-full:hover{background:#1570A8}.btn-full:active{background:#0f5a8a;transform:scale(.98)}.btn-full:disabled{opacity:.5;cursor:not-allowed;transform:none}
 .btn-group{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:var(--sp-sm)}
 
-/* ── BADGES ── */
-.badge-ok{display:inline-flex;align-items:center;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:rgba(22,163,74,.12);color:#4ADE80;border:1px solid rgba(22,163,74,.25)}
-.badge-off{display:inline-flex;align-items:center;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:rgba(220,38,38,.1);color:#FCA5A5;border:1px solid rgba(220,38,38,.25)}
-.badge-warn{display:inline-flex;align-items:center;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:rgba(217,119,6,.12);color:#FCD34D;border:1px solid rgba(217,119,6,.3)}
+/* ════ CHIPS ════ */
+.chip-group{display:flex;flex-wrap:wrap;gap:5px;padding:2px 0}
+.chip{padding:5px 11px;border-radius:99px;font-size:var(--fs-xs);font-weight:600;background:var(--card2);color:var(--txt2);border:1px solid var(--border);cursor:pointer;transition:.12s;white-space:nowrap;-webkit-tap-highlight-color:transparent;line-height:1.4}
+.chip:active{transform:scale(.95)}.chip.on{background:var(--p);color:#fff;border-color:var(--p)}
 
-/* ── TARJETA MÉDICO EXTENDIDA ── */
-.tenant-card{
-  background:var(--bg2);border:1px solid var(--border);border-radius:var(--rs);
-  padding:var(--sp-md);margin-bottom:10px;
-}
-.tenant-card-head{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px}
-.tenant-av{
-  width:40px;height:40px;border-radius:50%;flex-shrink:0;
-  background:linear-gradient(135deg,var(--p),var(--p2));
-  display:flex;align-items:center;justify-content:center;
-  font-size:15px;font-weight:700;color:#fff;
-}
-.tenant-info{flex:1;min-width:0}
-.tenant-nombre{font-size:var(--fs-sm);font-weight:700;color:var(--txt);margin-bottom:2px;line-height:1.3}
-.tenant-email{font-size:var(--fs-xs);color:var(--txt2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.tenant-meta{font-size:10px;color:var(--txt3);margin-top:3px}
-.tenant-actions{display:flex;gap:6px;flex-wrap:wrap;padding-top:10px;border-top:1px solid var(--border)}
+/* ════ SEPARADOR DE GRUPO ════ */
+.grp-sep{font-size:10px;font-weight:700;color:var(--txt3);letter-spacing:.5px;text-transform:uppercase;margin:12px 0 6px;display:flex;align-items:center;gap:8px}
+.grp-sep::after{content:'';flex:1;height:1px;background:var(--border)}
 
-/* ── ALERTA CARDS ── */
-.alerta-card{
-  border-radius:var(--rs);padding:var(--sp-sm) var(--sp-md);margin-bottom:8px;
-  border-left:3px solid;
-}
-.alerta-card.urgente{background:rgba(220,38,38,.06);border-color:#DC2626}
-.alerta-card.proximo{background:rgba(217,119,6,.06);border-color:#D97706}
-.alerta-card.vencido{background:rgba(220,38,38,.04);border-color:#7f1d1d}
-.alerta-nombre{font-size:var(--fs-sm);font-weight:700;color:var(--txt);margin-bottom:2px}
-.alerta-detalle{font-size:var(--fs-xs);color:var(--txt2);line-height:1.5}
-.alerta-dias{font-size:11px;font-weight:700;margin-top:4px}
-.alerta-dias.ok{color:#4ADE80}
-.alerta-dias.warn{color:#FCD34D}
-.alerta-dias.err{color:#FCA5A5}
+/* ════ BARRA RESULTADO ════ */
+.result-bar{display:flex;align-items:center;justify-content:space-between;padding:9px 14px;border-radius:var(--rs);margin-top:8px;background:rgba(26,127,193,.07);border:1px solid rgba(26,127,193,.18);gap:10px}
+.result-bar-n{font-size:22px;font-weight:700;color:var(--p2);line-height:1}
+.result-bar-lbl{font-size:var(--fs-xs);color:var(--txt2);margin-top:1px}
+.result-bar-total{font-size:var(--fs-xs);color:var(--txt3);text-align:right;line-height:1.5}
 
-/* ── STATS ROW ── */
-.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:var(--sp-md)}
-.stat-box{background:var(--card);border:1px solid var(--border);border-radius:var(--rs);padding:12px 10px;text-align:center}
-.stat-num{font-size:22px;font-weight:700;color:var(--p2);line-height:1}
-.stat-lbl{font-size:10px;color:var(--txt3);margin-top:4px;text-transform:uppercase;letter-spacing:.5px}
+/* ════ BADGES ════ */
+.bdg{display:inline-flex;align-items:center;padding:2px 7px;border-radius:99px;font-size:10px;font-weight:700;white-space:nowrap;margin-left:4px;vertical-align:middle}
+.bdg-ok  {background:rgba(22,163,74,.13);color:#4ADE80;border:1px solid rgba(22,163,74,.25)}
+.bdg-off {background:rgba(220,38,38,.1);color:#FCA5A5;border:1px solid rgba(220,38,38,.25)}
+.bdg-warn{background:rgba(217,119,6,.12);color:#FCD34D;border:1px solid rgba(217,119,6,.3)}
+.bdg-dim {background:rgba(74,106,133,.12);color:var(--txt3);border:1px solid var(--border)}
 
-/* ── MODAL DE EDICIÓN ── */
-.modal-overlay{
-  position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;
-  display:none;align-items:flex-end;justify-content:center;
-  padding:0;
-}
-.modal-overlay.on{display:flex}
-.modal{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:20px 20px 0 0;
-  width:100%;max-width:520px;
-  max-height:90vh;overflow-y:auto;-webkit-overflow-scrolling:touch;
-  padding:0 0 calc(var(--sp-lg) + env(safe-area-inset-bottom,0px));
-  animation:slideUp .25s ease-out;
-}
-@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
-.modal-hdr{
-  position:sticky;top:0;background:var(--card);
-  padding:var(--sp-md) var(--sp-md) var(--sp-sm);
-  border-bottom:1px solid var(--border);
-  display:flex;align-items:center;gap:10px;z-index:1;
-}
-.modal-titulo{font-size:var(--fs-base);font-weight:700;color:var(--txt);flex:1}
-.modal-close{
-  width:32px;height:32px;border-radius:50%;background:var(--card2);
-  display:flex;align-items:center;justify-content:center;
-  color:var(--txt2);font-size:16px;cursor:pointer;flex-shrink:0;
-  -webkit-tap-highlight-color:transparent;
-}
-.modal-close:active{background:var(--border)}
-.modal-body{padding:var(--sp-md)}
+/* ════ TARJETA MÉDICO ════ */
+.tc{background:var(--bg2);border:1px solid var(--border);border-radius:var(--rs);padding:var(--sp-md);margin-bottom:8px;transition:.12s}
+.tc:hover{border-color:rgba(26,127,193,.35)}
+.tc-head{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px}
+.tc-av{width:38px;height:38px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,var(--p),var(--p2));display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff}
+.tc-info{flex:1;min-width:0}
+.tc-nombre{font-size:var(--fs-sm);font-weight:700;color:var(--txt);line-height:1.3;word-break:break-word}
+.tc-email{font-size:var(--fs-xs);color:var(--txt2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-top:1px}
+.tc-meta{font-size:10px;color:var(--txt3);margin-top:5px;line-height:1.7}
+.tc-meta strong{color:var(--txt2)}
+.tc-actions{display:flex;gap:5px;flex-wrap:wrap;padding-top:8px;border-top:1px solid var(--border)}
+.tc-btn{padding:6px 10px;border-radius:var(--rs);font-size:10px;font-weight:600;min-height:30px;display:inline-flex;align-items:center;gap:4px;background:var(--card);border:1px solid var(--border);color:var(--txt2);cursor:pointer;transition:.12s;-webkit-tap-highlight-color:transparent;white-space:nowrap}
+.tc-btn:hover{background:var(--border);color:var(--txt)}.tc-btn:active{transform:scale(.95)}
+.tc-btn.primary{background:var(--p);border-color:var(--p);color:#fff}.tc-btn.primary:hover{background:#1570A8}
+.tc-btn.ok    {background:rgba(22,163,74,.1);border-color:rgba(22,163,74,.3);color:#4ADE80}
+.tc-btn.danger{background:rgba(220,38,38,.08);border-color:rgba(220,38,38,.25);color:#FCA5A5}
 
-/* ── BÚSQUEDA ── */
-.search-box{
-  background:var(--bg2);border:1px solid var(--border);color:var(--txt);
-  padding:10px 13px;border-radius:var(--rs);font-size:16px;width:100%;
-  min-height:var(--tap);margin-bottom:var(--sp-md);transition:.2s;
-}
-.search-box:focus{border-color:var(--p);box-shadow:0 0 0 3px rgba(26,127,193,.15)}
+/* ════ STATS ════ */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:var(--sp-md)}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:var(--rs);padding:10px 8px;text-align:center}
+.stat-n{font-size:22px;font-weight:700;color:var(--p2);line-height:1}
+.stat-l{font-size:9px;color:var(--txt3);margin-top:3px;text-transform:uppercase;letter-spacing:.4px}
 
-/* ── EMPTY STATE ── */
-.empty{
-  text-align:center;padding:32px 20px;color:var(--txt3);font-size:var(--fs-sm);
-  line-height:1.6;
-}
-.empty-icon{font-size:32px;margin-bottom:8px}
+/* ════ ALERTA CARD ════ */
+.ac{border-radius:var(--rs);padding:10px var(--sp-md);margin-bottom:7px;border-left:3px solid}
+.ac.urgente{background:rgba(220,38,38,.05);border-color:#DC2626}
+.ac.proximo{background:rgba(217,119,6,.05);border-color:#D97706}
+.ac.vencido{background:rgba(127,29,29,.1);border-color:#7f1d1d}
+.ac-nombre{font-size:var(--fs-sm);font-weight:700;color:var(--txt);margin-bottom:2px}
+.ac-det{font-size:var(--fs-xs);color:var(--txt2);line-height:1.5}
+.ac-dias{font-size:11px;font-weight:700;margin:4px 0}
+.ac-dias.e{color:#FCA5A5}.ac-dias.w{color:#FCD34D}.ac-dias.g{color:#4ADE80}
+.ac-btns{display:flex;gap:5px;flex-wrap:wrap;margin-top:5px}
 
-/* ── PERFIL GENERADOR ── */
-.gen-avatar-row{display:flex;align-items:center;gap:14px;margin-bottom:var(--sp-md)}
-.gen-av{
-  width:56px;height:56px;border-radius:50%;flex-shrink:0;
-  background:linear-gradient(135deg,var(--p),var(--p2));
-  display:flex;align-items:center;justify-content:center;
-  font-size:20px;font-weight:700;color:#fff;overflow:hidden;
-  border:2px solid var(--border);
-}
+/* ════ PERFIL ════ */
+.gen-row{display:flex;align-items:center;gap:14px;margin-bottom:var(--sp-md)}
+.gen-av{width:52px;height:52px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,var(--p),var(--p2));display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:700;color:#fff;overflow:hidden;border:2px solid var(--border)}
 .gen-av img{width:100%;height:100%;object-fit:cover;border-radius:50%}
-.gen-av-info{flex:1;min-width:0}
-.gen-av-nombre{font-size:var(--fs-md);font-weight:700;color:var(--txt);margin-bottom:2px}
-.gen-av-email{font-size:var(--fs-xs);color:var(--txt2)}
-.logo-upload-area{
-  border:2px dashed var(--border);border-radius:var(--rs);
-  padding:var(--sp-md);text-align:center;cursor:pointer;transition:.2s;
-  background:var(--bg2);position:relative;min-height:60px;
-  display:flex;align-items:center;justify-content:center;
-}
-.logo-upload-area:hover{border-color:var(--p);background:rgba(26,127,193,.08)}
-.logo-upload-area input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
-.logo-upload-hint{font-size:var(--fs-sm);color:var(--txt2);line-height:1.6}
-.logo-upload-hint strong{display:block;color:var(--txt);font-size:var(--fs-sm);margin-bottom:2px}
+.upload-area{border:2px dashed var(--border);border-radius:var(--rs);padding:var(--sp-md);text-align:center;cursor:pointer;transition:.2s;background:var(--bg2);position:relative;display:flex;align-items:center;justify-content:center;min-height:52px}
+.upload-area:hover{border-color:var(--p);background:rgba(26,127,193,.07)}
+.upload-area input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.upload-hint{font-size:var(--fs-sm);color:var(--txt2);line-height:1.5}
+.upload-hint strong{display:block;color:var(--txt);margin-bottom:2px}
+.m-lbl{font-size:10px;font-weight:700;color:var(--p2);letter-spacing:.5px;text-transform:uppercase;margin:14px 0 8px}
+.m-lbl:first-child{margin-top:0}
 
-/* ── TOAST ── */
-#toast{
-  position:fixed;
-  top:max(64px,calc(54px + env(safe-area-inset-top,10px)));
-  left:50%;transform:translateX(-50%) translateY(-90px);
-  background:var(--card);border:1px solid var(--border);color:var(--txt);
-  padding:10px 20px;border-radius:var(--r);font-size:var(--fs-sm);font-weight:500;
-  z-index:9000;transition:transform .3s ease;white-space:nowrap;
-  box-shadow:0 4px 20px rgba(0,0,0,.4);max-width:calc(100vw - 32px);
-  overflow:hidden;text-overflow:ellipsis;
-}
+/* ════ MODAL ════ */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:200;display:none;align-items:flex-end;justify-content:center}
+.overlay.on{display:flex}
+.modal{background:var(--card);border:1px solid var(--border);border-radius:20px 20px 0 0;width:100%;max-width:520px;max-height:90vh;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:calc(var(--sp-lg) + env(safe-area-inset-bottom,0px));animation:su .22s ease-out}
+@keyframes su{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.m-hdr{position:sticky;top:0;background:var(--card);z-index:1;padding:var(--sp-md) var(--sp-md) var(--sp-sm);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.m-titulo{font-size:var(--fs-base);font-weight:700;color:var(--txt);flex:1}
+.m-close{width:30px;height:30px;border-radius:50%;background:var(--card2);display:flex;align-items:center;justify-content:center;color:var(--txt2);font-size:15px;cursor:pointer;flex-shrink:0;-webkit-tap-highlight-color:transparent}
+.m-close:active{background:var(--border)}
+.m-body{padding:var(--sp-md)}
+
+/* ════ TOAST ════ */
+#toast{position:fixed;top:max(60px,calc(54px + env(safe-area-inset-top,8px)));left:50%;transform:translateX(-50%) translateY(-80px);background:var(--card);border:1px solid var(--border);color:var(--txt);padding:9px 20px;border-radius:var(--r);font-size:var(--fs-sm);font-weight:500;z-index:9000;transition:transform .28s ease;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,.45);max-width:calc(100vw - 32px);overflow:hidden;text-overflow:ellipsis}
 #toast.on{transform:translateX(-50%) translateY(0)}
 #toast.ok{border-color:rgba(22,163,74,.4);color:#4ADE80}
 #toast.err{border-color:rgba(220,38,38,.4);color:#FCA5A5}
 #toast.warn{border-color:rgba(217,119,6,.4);color:#FCD34D}
 
-.footer{text-align:center;padding:var(--sp-lg) var(--sp-md) calc(var(--sp-xl) + env(safe-area-inset-bottom,0px));color:var(--txt3);font-size:var(--fs-xs)}
-::-webkit-scrollbar{width:3px}
-::-webkit-scrollbar-thumb{background:var(--border);border-radius:99px}
-@media(min-width:600px){:root{--sp-md:16px;--sp-lg:24px;--fs-sm:14px}.content{padding:var(--sp-lg)}.sec-body{padding:var(--sp-lg)}}
+.footer{text-align:center;padding:var(--sp-lg) var(--sp-md) calc(28px + env(safe-area-inset-bottom,0px));color:var(--txt3);font-size:var(--fs-xs)}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:var(--border);border-radius:99px}
+mark{background:rgba(56,189,248,.22);color:var(--p2);border-radius:2px;padding:0 1px}
+@media(min-width:600px){:root{--sp-md:16px}.content{padding:var(--sp-lg)}.sec-body{padding:var(--sp-lg)}}
 </style>
 </head>
 <body>
 
-<!-- ══ TOPBAR ══ -->
+<!-- TOPBAR -->
 <div class="topbar">
-  <button class="tb-back" onclick="volverAlAdmin()" title="Volver al panel" aria-label="Volver">‹</button>
-  <div class="tb-title">Gestión Avanzada</div>
+  <button class="tb-back" onclick="volverAlAdmin()" aria-label="Volver">‹</button>
+  <span class="tb-title">Gestión Avanzada</span>
   <div class="tb-right">
-    <button class="ib" onclick="toggleTheme()" title="Tema" aria-label="Cambiar tema">🌓</button>
+    <button class="ib" onclick="toggleTheme()" aria-label="Tema">🌓</button>
   </div>
 </div>
 
-<!-- ══ TABS ══ -->
+<!-- TABS -->
 <div class="tabs">
-  <button class="tab on"  onclick="setTab('alertas')"  id="tab-alertas">🔔 Alertas</button>
-  <button class="tab"     onclick="setTab('medicos')"  id="tab-medicos">👨‍⚕️ Médicos</button>
-  <button class="tab"     onclick="setTab('perfil')"   id="tab-perfil">👤 Mi Perfil</button>
+  <button class="tab on" id="tab-consulta" onclick="setTab('consulta')">🔎 Consulta</button>
+  <button class="tab"    id="tab-alertas"  onclick="setTab('alertas')">🔔 Alertas</button>
+  <button class="tab"    id="tab-perfil"   onclick="setTab('perfil')">👤 Mi Perfil</button>
 </div>
 
-<!-- ══ CONTENIDO ══ -->
 <div class="content">
 
-  <!-- ═══ TAB: ALERTAS ═══ -->
-  <div class="tab-pane on" id="pane-alertas">
+<!-- ══════════════ TAB CONSULTA ══════════════ -->
+<div class="tab-pane on" id="pane-consulta">
 
-    <div class="stats-row" id="stats-row">
-      <div class="stat-box"><div class="stat-num" id="stat-proximos">—</div><div class="stat-lbl">Por vencer</div></div>
-      <div class="stat-box"><div class="stat-num" id="stat-vencidos">—</div><div class="stat-lbl">Vencidos</div></div>
-      <div class="stat-box"><div class="stat-num" id="stat-sin-fecha">—</div><div class="stat-lbl">Sin fecha</div></div>
-    </div>
-
-    <div class="sec">
-      <div class="sec-hdr">
-        <span class="sec-icon">⚠️</span>
-        <div><div class="sec-title">Próximos a vencer</div><div class="sec-sub">Licencias que vencen en los próximos 30 días</div></div>
+  <div class="sec">
+    <div class="sec-hdr">
+      <span class="sec-icon">🔎</span>
+      <div>
+        <div class="sec-title">Consulta de médicos</div>
+        <div class="sec-sub">Carga una vez · filtra al instante · sin recargar</div>
       </div>
-      <div class="sec-body" id="lista-proximos">
-        <div class="empty"><div class="empty-icon">📋</div>Presiona "Cargar alertas" para ver</div>
+      <button class="btn-sm sec" onclick="limpiarFiltros()"
+        style="margin-left:auto;font-size:10px;min-height:30px;padding:4px 10px;flex-shrink:0">
+        ✕ Limpiar
+      </button>
+    </div>
+    <div class="sec-body">
+
+      <!-- Búsqueda libre -->
+      <div class="ifield">
+        <label>Nombre · Email · Slug · Especialidad · Cédula</label>
+        <input type="search" id="f-q"
+               placeholder="Escribe cualquier dato del médico…"
+               inputmode="search" autocomplete="off"
+               oninput="filtrar()"/>
       </div>
-    </div>
 
-    <div class="sec">
-      <div class="sec-hdr">
-        <span class="sec-icon">❌</span>
-        <div><div class="sec-title">Ya vencidos</div><div class="sec-sub">Licencias vencidas en los últimos 30 días</div></div>
-      </div>
-      <div class="sec-body" id="lista-vencidos">
-        <div class="empty"><div class="empty-icon">📋</div>Presiona "Cargar alertas" para ver</div>
-      </div>
-    </div>
-
-    <div class="btn-group">
-      <button class="btn-sm" onclick="cargarAlertas()">🔄 Cargar alertas</button>
-    </div>
-
-    <div class="footer">Consultas Saludables Pro · Gestión v4.0</div>
-  </div>
-
-  <!-- ═══ TAB: MÉDICOS ═══ -->
-  <div class="tab-pane" id="pane-medicos">
-
-    <input class="search-box" type="search" id="busqueda"
-           placeholder="🔍 Buscar por nombre, email o slug…"
-           inputmode="search" oninput="filtrarMedicos()"/>
-
-    <div class="btn-group">
-      <button class="btn-sm" onclick="cargarMedicos()">🔄 Cargar médicos</button>
-      <button class="btn-sm sec" id="btn-filtro-activo" onclick="toggleFiltroActivo()">Mostrar todos</button>
-    </div>
-
-    <div id="lista-medicos-ext">
-      <div class="empty"><div class="empty-icon">👨‍⚕️</div>Presiona "Cargar médicos" para ver</div>
-    </div>
-
-    <div class="footer">Consultas Saludables Pro · Gestión v4.0</div>
-  </div>
-
-  <!-- ═══ TAB: PERFIL ═══ -->
-  <div class="tab-pane" id="pane-perfil">
-    <div class="sec">
-      <div class="sec-hdr">
-        <span class="sec-icon">👤</span>
-        <div><div class="sec-title">Mi Perfil de Generador</div><div class="sec-sub">Datos que se muestran en la plataforma</div></div>
-      </div>
-      <div class="sec-body">
-        <div class="gen-avatar-row">
-          <div class="gen-av" id="gen-av">?</div>
-          <div class="gen-av-info">
-            <div class="gen-av-nombre" id="gen-av-nombre">—</div>
-            <div class="gen-av-email" id="gen-av-email">—</div>
-          </div>
-        </div>
-
-        <div style="font-size:var(--fs-xs);font-weight:700;color:var(--p2);letter-spacing:.5px;text-transform:uppercase;margin-bottom:8px">Logo / Avatar</div>
-        <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:var(--sp-md)">
-          <img id="gen-logo-preview" style="width:52px;height:52px;border-radius:50%;object-fit:cover;border:2px solid var(--border);display:none;flex-shrink:0" src="" alt="Logo"/>
-          <div style="flex:1;min-width:0">
-            <div class="logo-upload-area">
-              <input type="file" id="gen-logo-file" accept="image/*" onchange="onGenLogoChange(event)"/>
-              <div class="logo-upload-hint">
-                <strong>📷 Subir logo</strong>
-                JPG, PNG, WebP — máx. 2 MB
-              </div>
-            </div>
-            <button id="btn-rm-gen-logo" onclick="quitarGenLogo()"
-              style="display:none;margin-top:6px;padding:5px 12px;background:rgba(220,38,38,.1);color:#FCA5A5;border:1px solid rgba(220,38,38,.3);border-radius:6px;font-size:var(--fs-xs);font-weight:600;cursor:pointer">
-              ✕ Quitar logo
-            </button>
-          </div>
-        </div>
-
+      <!-- Estado + Plan -->
+      <div class="irow">
         <div class="ifield">
-          <label>Nombre del generador</label>
-          <input type="text" id="gen-nombre" placeholder="Tu nombre o empresa" autocomplete="name"/>
+          <label>Estado de cuenta</label>
+          <select id="f-activo" onchange="filtrar()">
+            <option value="">Todos</option>
+            <option value="1">✅ Activos</option>
+            <option value="0">❌ Inactivos</option>
+          </select>
         </div>
-        <div class="irow">
-          <div class="ifield">
-            <label>Teléfono</label>
-            <input type="tel" id="gen-telefono" placeholder="55 1234 5678" inputmode="tel"/>
-          </div>
-          <div class="ifield">
-            <label>Correo de contacto</label>
-            <input type="email" id="gen-correo" placeholder="contacto@empresa.com" inputmode="email"/>
-          </div>
+        <div class="ifield">
+          <label>Plan</label>
+          <select id="f-plan" onchange="filtrar()">
+            <option value="">Todos los planes</option>
+            <option value="trial">Trial</option>
+            <option value="basico">Básico</option>
+            <option value="profesional">Profesional</option>
+            <option value="enterprise">Enterprise</option>
+          </select>
         </div>
-
-        <div class="btn-group" style="margin-top:var(--sp-sm)">
-          <button class="btn-sm" onclick="cargarPerfil()">🔄 Cargar datos</button>
-        </div>
-        <button class="btn-full" onclick="guardarPerfil()">💾 Guardar perfil</button>
       </div>
+
+      <!-- Estado de licencia — chips -->
+      <div class="ifield">
+        <label>Estado de licencia</label>
+        <div class="chip-group" id="f-lic">
+          <button class="chip on" data-val=""           onclick="setChip(this,'f-lic')">Todos</button>
+          <button class="chip"    data-val="vigente"    onclick="setChip(this,'f-lic')">✅ Vigente</button>
+          <button class="chip"    data-val="por_vencer" onclick="setChip(this,'f-lic')">⚠️ Por vencer ≤30d</button>
+          <button class="chip"    data-val="hoy"        onclick="setChip(this,'f-lic')">🔴 Vence hoy</button>
+          <button class="chip"    data-val="vencido"    onclick="setChip(this,'f-lic')">❌ Vencido</button>
+          <button class="chip"    data-val="sin_fecha"  onclick="setChip(this,'f-lic')">— Sin fecha</button>
+        </div>
+      </div>
+
+      <!-- Rango fecha de registro -->
+      <div class="grp-sep">Fecha de registro</div>
+      <div class="irow">
+        <div class="ifield">
+          <label>Desde</label>
+          <input type="date" id="f-reg-desde" onchange="filtrar()"/>
+        </div>
+        <div class="ifield">
+          <label>Hasta</label>
+          <input type="date" id="f-reg-hasta" onchange="filtrar()"/>
+        </div>
+      </div>
+
+      <!-- Rango fecha de vencimiento -->
+      <div class="grp-sep">Fecha de vencimiento</div>
+      <div class="irow">
+        <div class="ifield">
+          <label>Vence desde</label>
+          <input type="date" id="f-vc-desde" onchange="filtrar()"/>
+        </div>
+        <div class="ifield">
+          <label>Vence hasta</label>
+          <input type="date" id="f-vc-hasta" onchange="filtrar()"/>
+        </div>
+      </div>
+
+      <!-- Barra de resultados -->
+      <div class="result-bar" id="result-bar" style="display:none">
+        <div>
+          <div class="result-bar-n" id="r-num">0</div>
+          <div class="result-bar-lbl">resultado<span id="r-pl"></span> encontrado<span id="r-pl2"></span></div>
+        </div>
+        <div class="result-bar-total" id="r-total"></div>
+      </div>
+
     </div>
-    <div class="footer">Consultas Saludables Pro · Gestión v4.0</div>
+  </div><!-- /sec filtros -->
+
+  <div class="btn-group">
+    <button class="btn-sm" onclick="cargarTenants()" id="btn-cargar">🔄 Cargar médicos</button>
   </div>
+
+  <div id="lista-resultados">
+    <div style="text-align:center;padding:32px;color:var(--txt3);font-size:var(--fs-sm)">
+      <div style="font-size:30px;margin-bottom:8px">👨‍⚕️</div>
+      Presiona "Cargar médicos" para comenzar
+    </div>
+  </div>
+
+  <div class="footer">Consultas Saludables Pro · Gestión v4.0</div>
+</div>
+
+<!-- ══════════════ TAB ALERTAS ══════════════ -->
+<div class="tab-pane" id="pane-alertas">
+
+  <div class="stats" id="stats-row">
+    <div class="stat"><div class="stat-n" id="s-prox">—</div><div class="stat-l">Por vencer</div></div>
+    <div class="stat"><div class="stat-n" id="s-venc">—</div><div class="stat-l">Vencidos</div></div>
+    <div class="stat"><div class="stat-n" id="s-sf">—</div>  <div class="stat-l">Sin fecha</div></div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-hdr">
+      <span class="sec-icon">⚠️</span>
+      <div><div class="sec-title">Próximos a vencer</div><div class="sec-sub">Licencias que vencen en ≤30 días</div></div>
+    </div>
+    <div class="sec-body" id="lista-proximos">
+      <div style="color:var(--txt3);font-size:var(--fs-sm)">Presiona "Cargar alertas" para ver</div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-hdr">
+      <span class="sec-icon">❌</span>
+      <div><div class="sec-title">Ya vencidos</div><div class="sec-sub">Vencidos en los últimos 30 días</div></div>
+    </div>
+    <div class="sec-body" id="lista-vencidos">
+      <div style="color:var(--txt3);font-size:var(--fs-sm)">Presiona "Cargar alertas" para ver</div>
+    </div>
+  </div>
+
+  <div class="btn-group">
+    <button class="btn-sm" onclick="cargarAlertas()">🔄 Cargar alertas</button>
+  </div>
+
+  <div class="footer">Consultas Saludables Pro · Gestión v4.0</div>
+</div>
+
+<!-- ══════════════ TAB PERFIL ══════════════ -->
+<div class="tab-pane" id="pane-perfil">
+  <div class="sec">
+    <div class="sec-hdr">
+      <span class="sec-icon">👤</span>
+      <div><div class="sec-title">Mi Perfil de Generador</div><div class="sec-sub">Datos visibles en la plataforma</div></div>
+    </div>
+    <div class="sec-body">
+
+      <div class="gen-row">
+        <div class="gen-av" id="gen-av">?</div>
+        <div>
+          <div style="font-size:var(--fs-md);font-weight:700;color:var(--txt)" id="gen-av-nombre">—</div>
+          <div style="font-size:var(--fs-xs);color:var(--txt2)" id="gen-av-email">—</div>
+        </div>
+      </div>
+
+      <div class="m-lbl" style="margin-top:0">Logo / Avatar</div>
+      <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:var(--sp-md)">
+        <img id="gen-logo-prev" src="" alt="Logo"
+             style="width:48px;height:48px;border-radius:50%;object-fit:cover;border:2px solid var(--border);display:none;flex-shrink:0"/>
+        <div style="flex:1;min-width:0">
+          <div class="upload-area">
+            <input type="file" id="gen-logo-file" accept="image/*" onchange="onLogoChange(event)"/>
+            <div class="upload-hint"><strong>📷 Subir logo</strong>JPG, PNG, WebP · máx. 2 MB</div>
+          </div>
+          <button id="btn-rm-logo" onclick="quitarLogo()"
+            style="display:none;margin-top:5px;padding:4px 10px;background:rgba(220,38,38,.1);color:#FCA5A5;border:1px solid rgba(220,38,38,.3);border-radius:6px;font-size:10px;font-weight:600;cursor:pointer">
+            ✕ Quitar logo
+          </button>
+        </div>
+      </div>
+
+      <div class="ifield">
+        <label>Nombre del generador</label>
+        <input type="text" id="gen-nombre" placeholder="Tu nombre o empresa" autocomplete="name"/>
+      </div>
+      <div class="irow">
+        <div class="ifield">
+          <label>Teléfono</label>
+          <input type="tel" id="gen-tel" placeholder="55 1234 5678" inputmode="tel"/>
+        </div>
+        <div class="ifield">
+          <label>Correo contacto</label>
+          <input type="email" id="gen-correo" placeholder="contacto@empresa.com" inputmode="email"/>
+        </div>
+      </div>
+
+      <div class="btn-group" style="margin-top:var(--sp-sm)">
+        <button class="btn-sm" onclick="cargarPerfil()">🔄 Cargar datos</button>
+      </div>
+      <button class="btn-full" id="btn-save-perfil" onclick="guardarPerfil()">💾 Guardar perfil</button>
+    </div>
+  </div>
+  <div class="footer">Consultas Saludables Pro · Gestión v4.0</div>
+</div>
 
 </div><!-- /content -->
 
 <!-- ══ MODAL EDITAR MÉDICO ══ -->
-<div class="modal-overlay" id="modal-editar">
+<div class="overlay" id="overlay-editar">
   <div class="modal">
-    <div class="modal-hdr">
-      <div class="modal-titulo" id="modal-titulo">Editar médico</div>
-      <button class="modal-close" onclick="cerrarModal()">✕</button>
+    <div class="m-hdr">
+      <div class="m-titulo" id="m-titulo">Editar médico</div>
+      <button class="m-close" onclick="cerrarModal()">✕</button>
     </div>
-    <div class="modal-body">
+    <div class="m-body">
 
-      <div style="font-size:var(--fs-xs);font-weight:700;color:var(--p2);letter-spacing:.5px;text-transform:uppercase;margin-bottom:8px">Licencia</div>
+      <div class="m-lbl">Licencia</div>
       <div class="irow">
         <div class="ifield">
           <label>Plan</label>
@@ -445,7 +430,7 @@ input,select,textarea{font-family:var(--ff);outline:none;-webkit-tap-highlight-c
       <div class="irow">
         <div class="ifield">
           <label>Días de gracia</label>
-          <input type="number" id="ed-dias-gracia" min="0" max="30" inputmode="numeric"/>
+          <input type="number" id="ed-dias" min="0" max="30" inputmode="numeric"/>
         </div>
         <div class="ifield">
           <label>Estado</label>
@@ -456,32 +441,33 @@ input,select,textarea{font-family:var(--ff);outline:none;-webkit-tap-highlight-c
         </div>
       </div>
 
-      <div style="font-size:var(--fs-xs);font-weight:700;color:var(--p2);letter-spacing:.5px;text-transform:uppercase;margin:14px 0 8px">Acceso</div>
+      <div class="m-lbl">Acceso</div>
       <div class="ifield">
-        <label>Contraseña del médico</label>
-        <input type="text" id="ed-pass" placeholder="Nueva contraseña" autocomplete="off"/>
-        <div class="hint">Déjalo vacío para no cambiarla</div>
+        <label>Nueva contraseña</label>
+        <input type="text" id="ed-pass" placeholder="Vacío = no cambiar" autocomplete="off"/>
       </div>
 
-      <div style="font-size:var(--fs-xs);font-weight:700;color:var(--p2);letter-spacing:.5px;text-transform:uppercase;margin:14px 0 8px">Notas internas</div>
+      <div class="m-lbl">Notas internas</div>
       <div class="ifield">
-        <textarea id="ed-notas" rows="3" placeholder="Notas visibles solo para el admin"></textarea>
+        <textarea id="ed-notas" rows="2" placeholder="Solo visible para el admin"></textarea>
       </div>
 
-      <div style="font-size:var(--fs-xs);color:var(--txt3);margin-bottom:var(--sp-md);line-height:1.5">
-        Email: <span id="ed-email-label" style="font-family:var(--fm);color:var(--txt2)"></span><br/>
-        Slug: <span id="ed-slug-label" style="font-family:var(--fm);color:var(--txt2)"></span>
+      <div style="font-size:10px;color:var(--txt3);line-height:1.8;margin-bottom:var(--sp-md);font-family:var(--fm)">
+        email: <span id="ed-email-lbl" style="color:var(--txt2)"></span><br/>
+        slug: <span id="ed-slug-lbl" style="color:var(--txt2)"></span>
       </div>
 
       <!-- Acciones rápidas -->
-      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:var(--sp-md);padding:var(--sp-sm);background:var(--bg2);border-radius:var(--rs);border:1px solid var(--border)">
-        <div style="font-size:10px;font-weight:700;color:var(--txt3);width:100%;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Acciones rápidas</div>
-        <button class="btn-sm ok"     id="btn-renovar"   onclick="accionRenovar()">🔄 +1 año</button>
-        <button class="btn-sm warn"   id="btn-toggle"    onclick="accionToggle()">⏸ Suspender</button>
-        <button class="btn-sm sec"    onclick="abrirLanding()">🌐 Ver landing</button>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--rs);padding:10px var(--sp-sm);margin-bottom:var(--sp-md)">
+        <div style="font-size:10px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Acciones rápidas</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <button class="btn-sm ok"  id="btn-m-renovar" onclick="modalRenovar()">🔄 +1 año</button>
+          <button class="btn-sm"     id="btn-m-toggle"  onclick="modalToggle()">⏸ Suspender</button>
+          <button class="btn-sm sec"                    onclick="modalLanding()">🌐 Landing</button>
+        </div>
       </div>
 
-      <button class="btn-full" id="btn-guardar-edicion" onclick="guardarEdicion()">💾 Guardar cambios</button>
+      <button class="btn-full" id="btn-guardar-modal" onclick="guardarModal()">💾 Guardar cambios</button>
     </div>
   </div>
 </div>
@@ -489,69 +475,85 @@ input,select,textarea{font-family:var(--ff);outline:none;-webkit-tap-highlight-c
 <div id="toast"></div>
 
 <script>
-// ══════════════════════════════════════════════
-//  CONFIG — lee lo guardado por el admin principal
-// ══════════════════════════════════════════════
-var ADMIN_URL    = "index.html";   // ← ajustar a la ruta real del admin
-var BASE_URL     = "https://proyectosolaronline-ops.github.io/Citas-Pro-Salud";
-var SESSION_KEY  = "sp_admin_session";
+'use strict';
 
-var TENANTS_CACHE = [];
-var TENANTS_FILTRADOS = [];
-var SOLO_ACTIVOS  = false;
-var EDITOR_TENANT = null;    // tenant actualmente en el modal
-var GEN_LOGO_B64  = "";
+/* ─── CONFIG ─── */
+var ADMIN_URL   = "admin-mobile.html";
+var BASE_URL    = "https://proyectosolaronline-ops.github.io/Citas-Pro-Salud";
+var SESSION_KEY = "sp_admin_session";
 
-// ── helpers ──
-function lsGet(k){ try{ return JSON.parse(localStorage.getItem(k)); }catch(e){ return null; } }
-function lsSet(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} }
-function getSesion(){ return lsGet(SESSION_KEY)||{}; }
+/* ─── ESTADO ─── */
+var DB          = [];   // todos los tenants del backend
+var DB_FILTERED = [];   // resultado del filtro actual
+var EDITOR      = null; // tenant abierto en modal
+var LOGO_B64    = "";   // logo pendiente en perfil
 
-function getScriptUrl(){
+/* ─── HELPERS ─── */
+function ls(k,v){
+  try{
+    if(v===undefined) return JSON.parse(localStorage.getItem(k));
+    localStorage.setItem(k,JSON.stringify(v));
+  }catch(e){ return null; }
+}
+function sesion(){ return ls(SESSION_KEY)||{}; }
+function scriptUrl(){
   try{ var u=localStorage.getItem("sp_url"); if(u&&u.length>10) return u; }catch(e){}
   return "";
 }
-
-function postApi(data){
-  var s=getSesion();
-  var fd=new FormData();
-  Object.keys(data).forEach(function(k){ fd.append(k,data[k]); });
+function api(data){
+  var s=sesion(), fd=new FormData();
+  Object.keys(data).forEach(function(k){ fd.append(k,String(data[k])); });
   if(!data.email && s.email) fd.append("email",s.email);
-  return fetch(getScriptUrl(),{method:"POST",body:fd}).then(function(r){ return r.json(); });
+  return fetch(scriptUrl(),{method:"POST",body:fd}).then(function(r){ return r.json(); });
+}
+function esc(s){
+  return String(s||"")
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+}
+function hlight(txt,q){
+  if(!q||!txt) return esc(txt);
+  var re=new RegExp("("+q.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+")","gi");
+  return esc(txt).replace(re,"<mark>$1</mark>");
+}
+function diasHasta(v){
+  if(!v) return null;
+  var d=new Date(v); d.setHours(0,0,0,0);
+  var h=new Date(); h.setHours(0,0,0,0);
+  return Math.round((d-h)/86400000);
+}
+function d2s(v){ return v?String(v).slice(0,10):""; }
+
+var _tt;
+function toast(msg,type){
+  var t=document.getElementById("toast");
+  t.textContent=msg; t.className="on "+(type||"");
+  clearTimeout(_tt); _tt=setTimeout(function(){ t.classList.remove("on"); },3200);
 }
 
-// ── arranque ──
+/* ─── ARRANQUE ─── */
 window.addEventListener("DOMContentLoaded",function(){
   applyTheme();
-  var s=getSesion();
+  var s=sesion();
   if(!s||!s.email||!s.exp||Date.now()>=s.exp){
-    toast("⚠️ Sesión expirada — redirigiendo…","warn");
+    toast("⚠️ Sesión expirada","warn");
     setTimeout(function(){ window.location.href=ADMIN_URL; },1500);
-    return;
   }
-  // Pre-cargar las tres secciones
-  cargarAlertas();
-  cargarMedicos();
-  cargarPerfil();
 });
 
-// ── tema ──
+/* ─── TEMA / NAV / TABS ─── */
 function applyTheme(){
-  var cfg=lsGet("sp_cfg")||{};
-  document.documentElement.setAttribute("data-theme",(cfg.tema&&cfg.tema.dark===false)?"light":"dark");
+  var cfg=ls("sp_cfg")||{};
+  document.documentElement.setAttribute("data-theme",
+    (cfg.tema&&cfg.tema.dark===false)?"light":"dark");
 }
 function toggleTheme(){
-  var cur=document.documentElement.getAttribute("data-theme"),n=cur==="dark"?"light":"dark";
+  var c=document.documentElement.getAttribute("data-theme"), n=c==="dark"?"light":"dark";
   document.documentElement.setAttribute("data-theme",n);
-  var cfg=lsGet("sp_cfg")||{}; if(!cfg.tema) cfg.tema={};
-  cfg.tema.dark=n==="dark"; lsSet("sp_cfg",cfg);
+  var cfg=ls("sp_cfg")||{}; if(!cfg.tema)cfg.tema={};
+  cfg.tema.dark=n==="dark"; ls("sp_cfg",cfg);
 }
-
-// ── navegación ──
-function volverAlAdmin(){
-  try{ window.location.href=ADMIN_URL; }catch(e){ window.history.back(); }
-}
-
+function volverAlAdmin(){ window.location.href=ADMIN_URL; }
 function setTab(id){
   document.querySelectorAll(".tab").forEach(function(t){ t.classList.remove("on"); });
   document.querySelectorAll(".tab-pane").forEach(function(p){ p.classList.remove("on"); });
@@ -559,371 +561,489 @@ function setTab(id){
   document.getElementById("pane-"+id).classList.add("on");
 }
 
-// ══════════════════════════════════════════════
-//  TAB ALERTAS — adminGetAlertas
-// ══════════════════════════════════════════════
-async function cargarAlertas(){
-  ["lista-proximos","lista-vencidos"].forEach(function(id){
-    document.getElementById(id).innerHTML='<div class="empty"><div class="empty-icon">🔄</div>Cargando…</div>';
-  });
+/* ─── CHIPS ─── */
+function setChip(btn,gid){
+  document.querySelectorAll("#"+gid+" .chip").forEach(function(c){ c.classList.remove("on"); });
+  btn.classList.add("on");
+  filtrar();
+}
+function chipVal(gid){
+  var c=document.querySelector("#"+gid+" .chip.on");
+  return c?c.getAttribute("data-val"):"";
+}
+
+/* ════════════════════════════════════════════
+   CARGA BACKEND — una sola vez
+════════════════════════════════════════════ */
+async function cargarTenants(){
+  var btn=document.getElementById("btn-cargar");
+  btn.disabled=true; btn.textContent="Cargando…";
+  document.getElementById("lista-resultados").innerHTML=
+    '<div style="text-align:center;padding:32px;color:var(--txt3);font-size:var(--fs-sm)">'+
+    '<div style="font-size:28px;margin-bottom:8px">🔄</div>Obteniendo médicos…</div>';
   try{
-    var r=await postApi({action:"adminGetAlertas",dias_antes:"30",dias_post:"30"});
-    if(!r.ok){ toast("❌ "+(r.msg||"Error al cargar alertas"),"err"); return; }
+    var r=await api({action:"adminListTenants"});
+    if(!r.ok){ toast("❌ "+(r.msg||"Error al cargar"),"err"); return; }
+    DB=r.data||[];
+    filtrar();
+    toast("✅ "+DB.length+" médicos cargados","ok");
+  }catch(e){ toast("❌ "+e.message,"err"); }
+  finally{ btn.disabled=false; btn.textContent="🔄 Cargar médicos"; }
+}
 
-    // Stats
-    document.getElementById("stat-proximos").textContent=r.totals.proximos;
-    document.getElementById("stat-vencidos").textContent=r.totals.vencidos;
-    document.getElementById("stat-sin-fecha").textContent=r.totals.sin_fecha;
+/* ════════════════════════════════════════════
+   MOTOR DE FILTRADO INSTANTÁNEO — 100% cliente
+   Se dispara en cada cambio de cualquier filtro
+════════════════════════════════════════════ */
+function limpiarFiltros(){
+  ["f-q","f-reg-desde","f-reg-hasta","f-vc-desde","f-vc-hasta"].forEach(function(id){
+    document.getElementById(id).value="";
+  });
+  document.getElementById("f-activo").value="";
+  document.getElementById("f-plan").value="";
+  document.querySelectorAll("#f-lic .chip").forEach(function(c,i){ c.classList.toggle("on",i===0); });
+  filtrar();
+}
 
-    // Próximos
-    var elP=document.getElementById("lista-proximos");
-    if(!r.proximos||r.proximos.length===0){
-      elP.innerHTML='<div class="empty"><div class="empty-icon">✅</div>Sin vencimientos próximos</div>';
-    } else {
-      elP.innerHTML=r.proximos.map(function(m){
-        var dias=m.dias_para_vencer;
-        var cls=dias<=1?"urgente":dias<=7?"proximo":"proximo";
-        var diasLbl=dias===0?"Vence HOY":dias===1?"Vence mañana":"Vence en "+dias+" días";
-        var diasCls=dias<=1?"err":dias<=7?"warn":"ok";
-        return '<div class="alerta-card '+cls+'">'
-          +'<div class="alerta-nombre">'+esc(m.nombre_legal)+'</div>'
-          +'<div class="alerta-detalle">'+esc(m.email)+' · Plan: '+esc(m.plan)+'</div>'
-          +'<div class="alerta-dias '+diasCls+'">'+diasLbl+' ('+esc(m.vence)+')</div>'
-          +'<div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">'
-          +'<button class="btn-sm ok" style="font-size:10px;min-height:32px;padding:6px 10px" onclick="abrirEditorDesdeAlerta(\''+esc(m.email)+'\')">✏️ Editar</button>'
-          +'<button class="btn-sm" style="font-size:10px;min-height:32px;padding:6px 10px" onclick="renovarRapido(\''+esc(m.email)+'\',\''+esc(m.nombre_legal)+'\')">🔄 +1 año</button>'
-          +'</div></div>';
-      }).join("");
+function filtrar(){
+  if(DB.length===0){ renderResultados(); return; }
+
+  /* Leer todos los filtros */
+  var q        = (document.getElementById("f-q").value||"").trim().toLowerCase();
+  var fActivo  = document.getElementById("f-activo").value;
+  var fPlan    = document.getElementById("f-plan").value.toLowerCase();
+  var fLic     = chipVal("f-lic");
+  var regDesde = document.getElementById("f-reg-desde").value;
+  var regHasta = document.getElementById("f-reg-hasta").value;
+  var vcDesde  = document.getElementById("f-vc-desde").value;
+  var vcHasta  = document.getElementById("f-vc-hasta").value;
+
+  DB_FILTERED = DB.filter(function(m){
+
+    /* ── Texto libre: nombre, email, slug, especialidad, cédula, plan ── */
+    if(q){
+      var h=[m.nombre_legal,m.email,m.slug,m.especialidad,m.cedula,m.plan]
+             .join(" ").toLowerCase();
+      if(h.indexOf(q)<0) return false;
     }
 
-    // Vencidos
-    var elV=document.getElementById("lista-vencidos");
-    if(!r.vencidos||r.vencidos.length===0){
-      elV.innerHTML='<div class="empty"><div class="empty-icon">✅</div>Sin vencimientos recientes</div>';
-    } else {
-      elV.innerHTML=r.vencidos.map(function(m){
-        var dias=Math.abs(m.dias_para_vencer);
-        return '<div class="alerta-card vencido">'
-          +'<div class="alerta-nombre">'+esc(m.nombre_legal)+'</div>'
-          +'<div class="alerta-detalle">'+esc(m.email)+' · Plan: '+esc(m.plan)+'</div>'
-          +'<div class="alerta-dias err">Venció hace '+dias+' día'+(dias!==1?"s":"")+'  ('+esc(m.vence)+')</div>'
-          +'<div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">'
-          +'<button class="btn-sm" style="font-size:10px;min-height:32px;padding:6px 10px" onclick="renovarRapido(\''+esc(m.email)+'\',\''+esc(m.nombre_legal)+'\')">🔄 +1 año</button>'
-          +'<button class="btn-sm sec" style="font-size:10px;min-height:32px;padding:6px 10px" onclick="abrirEditorDesdeAlerta(\''+esc(m.email)+'\')">✏️ Editar</button>'
-          +'</div></div>';
-      }).join("");
+    /* ── Estado de cuenta ── */
+    if(fActivo==="1" && !m.activo)  return false;
+    if(fActivo==="0" &&  m.activo)  return false;
+
+    /* ── Plan ── */
+    if(fPlan && (m.plan||"").toLowerCase()!==fPlan) return false;
+
+    /* ── Estado licencia (chip) ── */
+    if(fLic){
+      var dias=diasHasta(m.vence);
+      if(fLic==="vigente"    && (dias===null||dias<0))           return false;
+      if(fLic==="por_vencer" && (dias===null||dias<0||dias>30))  return false;
+      if(fLic==="hoy"        && dias!==0)                        return false;
+      if(fLic==="vencido"    && (dias===null||dias>=0))          return false;
+      if(fLic==="sin_fecha"  && m.vence)                         return false;
     }
-    toast("✅ Alertas cargadas","ok");
-  }catch(e){ toast("❌ Error: "+e.message,"err"); }
-}
 
-// Renovar desde alerta sin abrir el modal
-async function renovarRapido(email,nombre){
-  if(!confirm("¿Renovar +1 año para "+nombre+"?")) return;
-  var hoy=new Date(); hoy.setFullYear(hoy.getFullYear()+1);
-  var nuevaVence=hoy.toISOString().slice(0,10);
-  try{
-    var r=await postApi({action:"adminGrantEdit",tenant_email:email,nueva_vence:nuevaVence});
-    if(r.ok){ toast("✅ "+nombre+" renovado hasta "+nuevaVence,"ok"); cargarAlertas(); }
-    else     { toast("❌ "+(r.msg||"Error"),"err"); }
-  }catch(e){ toast("❌ "+e.message,"err"); }
-}
+    /* ── Rango fecha de registro ── */
+    if(regDesde||regHasta){
+      var rd=m.creado?new Date(d2s(m.creado)):null;
+      if(!rd||isNaN(rd)) return false;
+      rd.setHours(0,0,0,0);
+      if(regDesde && rd<new Date(regDesde)) return false;
+      if(regHasta && rd>new Date(regHasta)) return false;
+    }
 
-// ══════════════════════════════════════════════
-//  TAB MÉDICOS — adminListTenants + adminGetTenant
-// ══════════════════════════════════════════════
-async function cargarMedicos(){
-  document.getElementById("lista-medicos-ext").innerHTML='<div class="empty"><div class="empty-icon">🔄</div>Cargando…</div>';
-  try{
-    var r=await postApi({action:"adminListTenants"});
-    if(!r.ok){ toast("❌ "+(r.msg||"Error"),"err"); return; }
-    TENANTS_CACHE=r.data||[];
-    filtrarMedicos();
-    toast("✅ "+TENANTS_CACHE.length+" médicos cargados","ok");
-  }catch(e){ toast("❌ "+e.message,"err"); }
-}
+    /* ── Rango fecha vencimiento ── */
+    if(vcDesde||vcHasta){
+      var vd=m.vence?new Date(d2s(m.vence)):null;
+      if(!vd||isNaN(vd)) return false;
+      vd.setHours(0,0,0,0);
+      if(vcDesde && vd<new Date(vcDesde)) return false;
+      if(vcHasta && vd>new Date(vcHasta)) return false;
+    }
 
-function toggleFiltroActivo(){
-  SOLO_ACTIVOS=!SOLO_ACTIVOS;
-  document.getElementById("btn-filtro-activo").textContent=SOLO_ACTIVOS?"Solo activos":"Mostrar todos";
-  document.getElementById("btn-filtro-activo").className="btn-sm "+(SOLO_ACTIVOS?"":"sec");
-  filtrarMedicos();
-}
-
-function filtrarMedicos(){
-  var q=(document.getElementById("busqueda").value||"").trim().toLowerCase();
-  TENANTS_FILTRADOS=TENANTS_CACHE.filter(function(m){
-    if(SOLO_ACTIVOS && !m.activo) return false;
-    if(!q) return true;
-    return (m.nombre_legal||"").toLowerCase().indexOf(q)>=0
-        || (m.email||"").toLowerCase().indexOf(q)>=0
-        || (m.slug||"").toLowerCase().indexOf(q)>=0;
+    return true;
   });
-  renderMedicos();
+
+  /* Actualizar barra de resultados */
+  var n=DB_FILTERED.length, total=DB.length;
+  var rb=document.getElementById("result-bar");
+  document.getElementById("r-num").textContent=n;
+  document.getElementById("r-pl").textContent =n===1?"":"s";
+  document.getElementById("r-pl2").textContent=n===1?"":"s";
+  document.getElementById("r-total").textContent=
+    n<total?"de "+total+" médicos cargados":"Todos los médicos · sin filtros activos";
+  rb.style.display=total>0?"flex":"none";
+
+  renderResultados();
 }
 
-function renderMedicos(){
-  var el=document.getElementById("lista-medicos-ext");
-  if(TENANTS_FILTRADOS.length===0){
-    el.innerHTML='<div class="empty"><div class="empty-icon">🔍</div>Sin resultados</div>';
+/* ════════════════════════════════════════════
+   RENDER TARJETAS
+════════════════════════════════════════════ */
+function renderResultados(){
+  var el=document.getElementById("lista-resultados");
+
+  if(DB.length===0){
+    el.innerHTML='<div style="text-align:center;padding:32px;color:var(--txt3);font-size:var(--fs-sm)">'+
+      '<div style="font-size:30px;margin-bottom:8px">👨‍⚕️</div>Presiona "Cargar médicos" para comenzar</div>';
     return;
   }
-  el.innerHTML=TENANTS_FILTRADOS.map(function(m){
+  if(DB_FILTERED.length===0){
+    el.innerHTML='<div style="text-align:center;padding:32px;color:var(--txt3);font-size:var(--fs-sm)">'+
+      '<div style="font-size:30px;margin-bottom:8px">🔍</div>Sin resultados con los filtros actuales</div>';
+    return;
+  }
+
+  var q=(document.getElementById("f-q").value||"").trim();
+
+  el.innerHTML=DB_FILTERED.map(function(m){
     var ini=(m.nombre_legal||"?")[0].toUpperCase();
-    var badge=m.activo?'<span class="badge-ok">● Activo</span>':'<span class="badge-off">● Inactivo</span>';
-    var venceBadge="";
-    if(m.vence){
-      var diff=Math.round((new Date(m.vence)-new Date())/86400000);
-      if(diff<0) venceBadge='<span class="badge-off" style="margin-left:4px">Vencido</span>';
-      else if(diff<=7) venceBadge='<span class="badge-warn" style="margin-left:4px">'+diff+'d</span>';
+    var dias=diasHasta(m.vence);
+
+    /* Badge estado */
+    var bActivo=m.activo
+      ?'<span class="bdg bdg-ok">● Activo</span>'
+      :'<span class="bdg bdg-off">● Inactivo</span>';
+
+    /* Badge licencia */
+    var bLic="";
+    if(!m.vence){
+      bLic='<span class="bdg bdg-dim">Sin fecha</span>';
+    } else if(dias<0){
+      bLic='<span class="bdg bdg-off">Vencido '+Math.abs(dias)+'d</span>';
+    } else if(dias===0){
+      bLic='<span class="bdg bdg-off">Vence hoy</span>';
+    } else if(dias<=7){
+      bLic='<span class="bdg bdg-warn">'+dias+'d</span>';
+    } else if(dias<=30){
+      bLic='<span class="bdg bdg-warn" style="opacity:.65">'+dias+'d</span>';
     }
-    return '<div class="tenant-card">'
-      +'<div class="tenant-card-head">'
-      +'<div class="tenant-av">'+ini+'</div>'
-      +'<div class="tenant-info">'
-      +'<div class="tenant-nombre">'+esc(m.nombre_legal)+badge+venceBadge+'</div>'
-      +'<div class="tenant-email">'+esc(m.email)+'</div>'
-      +'<div class="tenant-meta">'+esc(m.plan)+' · '+esc(m.slug)+(m.vence?' · Vence: '+m.vence:'')+'</div>'
-      +'</div></div>'
-      +'<div class="tenant-actions">'
-      +'<button class="btn-sm" style="font-size:11px;min-height:36px;padding:8px 12px" onclick="abrirModal(\''+esc(m.email)+'\')">✏️ Editar</button>'
-      +'<button class="btn-sm ok" style="font-size:11px;min-height:36px;padding:8px 12px" onclick="renovarRapido(\''+esc(m.email)+'\',\''+esc(m.nombre_legal)+'\')">🔄 +1 año</button>'
-      +'<button class="btn-sm '+(m.activo?"danger":"ok")+'" style="font-size:11px;min-height:36px;padding:8px 12px" onclick="toggleActivo(\''+esc(m.email)+'\',\''+esc(m.nombre_legal)+'\','+m.activo+')">'+(m.activo?"⏸":"▶️")+'</button>'
-      +'<button class="btn-sm sec" style="font-size:11px;min-height:36px;padding:8px 12px" onclick="window.open(\''+esc(BASE_URL)+'/index.html?lic='+esc(m.slug)+'\',\'_blank\')">🌐</button>'
-      +'</div></div>';
+
+    /* Color de fecha */
+    var vcColor= dias===null  ?"var(--txt3)"
+               : dias<0       ?"#FCA5A5"
+               : dias<=7      ?"#FCD34D"
+               : "var(--txt2)";
+
+    /* Nombre con highlight del texto buscado */
+    var nombreHL=hlight(m.nombre_legal,q);
+    var eml=esc(m.email), enombre=esc(m.nombre_legal);
+
+    return '<div class="tc">'
+      +'<div class="tc-head">'
+        +'<div class="tc-av">'+ini+'</div>'
+        +'<div class="tc-info">'
+          +'<div class="tc-nombre">'+nombreHL+bActivo+bLic+'</div>'
+          +'<div class="tc-email">'+eml+'</div>'
+          +'<div class="tc-meta">'
+            +'<strong>'+esc(m.plan||"—")+'</strong>'
+            +' · slug: '+esc(m.slug||"—")
+            +(m.especialidad?' · '+esc(m.especialidad):'')
+            +(m.vence?' · Vence: <strong style="color:'+vcColor+'">'+d2s(m.vence)+'</strong>':'')
+            +(m.creado?' · Registro: '+d2s(m.creado):'')
+            +(m.ult_acceso?' · Último acceso: '+d2s(m.ult_acceso):'')
+          +'</div>'
+        +'</div>'
+      +'</div>'
+      +'<div class="tc-actions">'
+        +'<button class="tc-btn primary" onclick="abrirModal(\''+eml+'\')">✏️ Editar</button>'
+        +'<button class="tc-btn ok"      onclick="renovarRapido(\''+eml+'\',\''+enombre+'\')">🔄 +1 año</button>'
+        +'<button class="tc-btn '+(m.activo?"danger":"ok")+'" onclick="toggleActivo(\''+eml+'\',\''+enombre+'\','+m.activo+')">'+(m.activo?"⏸ Suspender":"▶️ Activar")+'</button>'
+        +'<button class="tc-btn"         onclick="window.open(\''+BASE_URL+'/index.html?lic='+esc(m.slug)+'\',\'_blank\')">🌐 Landing</button>'
+      +'</div>'
+      +'</div>';
   }).join("");
 }
 
-// ── Toggle activo/inactivo rápido ──
+/* ════════════════════════════════════════════
+   ACCIONES RÁPIDAS DESDE TARJETA
+════════════════════════════════════════════ */
 async function toggleActivo(email,nombre,activo){
-  var accion=activo?"suspender":"activar";
-  if(!confirm("¿"+accion.charAt(0).toUpperCase()+accion.slice(1)+" a "+nombre+"?")) return;
+  if(!confirm((activo?"¿Suspender":"¿Activar")+" a "+nombre+"?")) return;
   try{
-    var r=await postApi({action:"adminToggleActivo",tenant_email:email});
+    var r=await api({action:"adminToggleActivo",tenant_email:email});
     if(r.ok){
-      toast((r.activo?"✅ Activado":"⏸ Suspendido")+": "+nombre,"ok");
-      // Actualizar cache local
-      var t=TENANTS_CACHE.find(function(m){ return m.email===email; });
+      var t=DB.find(function(m){ return m.email===email; });
       if(t) t.activo=r.activo;
-      filtrarMedicos();
-    } else { toast("❌ "+(r.msg||"Error"),"err"); }
+      toast((r.activo?"✅ Activado":"⏸ Suspendido")+": "+nombre,"ok");
+      filtrar();
+    } else toast("❌ "+(r.msg||"Error"),"err");
   }catch(e){ toast("❌ "+e.message,"err"); }
 }
 
-// ── Abrir modal desde alerta ──
-async function abrirEditorDesdeAlerta(email){
-  // Si no están cargados los tenants, cargarlos
-  if(TENANTS_CACHE.length===0) await cargarMedicos();
-  abrirModal(email);
-  setTab("medicos");
+async function renovarRapido(email,nombre){
+  if(!confirm("¿Renovar +1 año para "+nombre+"?")) return;
+  var h=new Date(); h.setFullYear(h.getFullYear()+1);
+  var nv=h.toISOString().slice(0,10);
+  try{
+    var r=await api({action:"adminGrantEdit",tenant_email:email,nueva_vence:nv});
+    if(r.ok){
+      var t=DB.find(function(m){ return m.email===email; });
+      if(t){ t.vence=nv; t.activo=true; }
+      toast("✅ "+nombre+" renovado hasta "+nv,"ok");
+      filtrar();
+    } else toast("❌ "+(r.msg||"Error"),"err");
+  }catch(e){ toast("❌ "+e.message,"err"); }
 }
 
-// ══════════════════════════════════════════════
-//  MODAL EDITAR — adminGetTenant + adminSaveTenant
-// ══════════════════════════════════════════════
+/* ════════════════════════════════════════════
+   MODAL EDICIÓN
+════════════════════════════════════════════ */
 async function abrirModal(email){
-  EDITOR_TENANT=null;
-  document.getElementById("modal-titulo").textContent="Cargando…";
-  document.getElementById("modal-editar").classList.add("on");
+  EDITOR=null;
+  document.getElementById("m-titulo").textContent="Cargando…";
+  document.getElementById("overlay-editar").classList.add("on");
   document.body.style.overflow="hidden";
-
   try{
-    var r=await postApi({action:"adminGetTenant",tenant_email:email});
+    var r=await api({action:"adminGetTenant",tenant_email:email});
     if(!r.ok){ toast("❌ "+(r.msg||"Error"),"err"); cerrarModal(); return; }
-    var d=r.tenant;
-    EDITOR_TENANT=d;
-
-    document.getElementById("modal-titulo").textContent=d.nombre_legal||email;
-    document.getElementById("ed-plan").value       = d.plan||"trial";
-    document.getElementById("ed-vence").value      = (d.vence||"").slice(0,10);
-    document.getElementById("ed-dias-gracia").value= d.dias_gracia||"3";
-    document.getElementById("ed-activo").value     = (d.activo||"").toUpperCase()==="TRUE"?"TRUE":"FALSE";
-    document.getElementById("ed-pass").value       = "";   // no pre-rellenar por seguridad
-    document.getElementById("ed-notas").value      = d.notas||"";
-    document.getElementById("ed-email-label").textContent = d.email||"";
-    document.getElementById("ed-slug-label").textContent  = d.slug||"";
-
-    // Estado del botón toggle
-    var esActivo=(d.activo||"").toUpperCase()==="TRUE";
-    var btnT=document.getElementById("btn-toggle");
-    btnT.textContent=esActivo?"⏸ Suspender":"▶️ Activar";
-    btnT.className="btn-sm "+(esActivo?"danger":"ok");
-
+    var d=r.tenant; EDITOR=d;
+    document.getElementById("m-titulo").textContent   = d.nombre_legal||email;
+    document.getElementById("ed-plan").value          = d.plan||"trial";
+    document.getElementById("ed-vence").value         = d2s(d.vence);
+    document.getElementById("ed-dias").value          = d.dias_gracia||"3";
+    document.getElementById("ed-activo").value        = (d.activo||"").toUpperCase()==="TRUE"?"TRUE":"FALSE";
+    document.getElementById("ed-pass").value          = "";
+    document.getElementById("ed-notas").value         = d.notas||"";
+    document.getElementById("ed-email-lbl").textContent = d.email||"";
+    document.getElementById("ed-slug-lbl").textContent  = d.slug||"";
+    var ea=(d.activo||"").toUpperCase()==="TRUE";
+    var bt=document.getElementById("btn-m-toggle");
+    bt.textContent=ea?"⏸ Suspender":"▶️ Activar";
+    bt.className  ="btn-sm "+(ea?"danger":"ok");
   }catch(e){ toast("❌ "+e.message,"err"); cerrarModal(); }
 }
 
 function cerrarModal(){
-  document.getElementById("modal-editar").classList.remove("on");
+  document.getElementById("overlay-editar").classList.remove("on");
   document.body.style.overflow="";
-  EDITOR_TENANT=null;
+  EDITOR=null;
 }
-
-// Click fuera del modal = cerrar
-document.getElementById("modal-editar").addEventListener("click",function(e){
+document.getElementById("overlay-editar").addEventListener("click",function(e){
   if(e.target===this) cerrarModal();
 });
 
-async function guardarEdicion(){
-  if(!EDITOR_TENANT){ toast("Sin médico seleccionado","err"); return; }
-  var plan       = document.getElementById("ed-plan").value;
-  var vence      = document.getElementById("ed-vence").value;
-  var diasGracia = document.getElementById("ed-dias-gracia").value;
-  var activo     = document.getElementById("ed-activo").value;
-  var pass       = document.getElementById("ed-pass").value.trim();
-  var notas      = document.getElementById("ed-notas").value;
-
-  var payload={email:EDITOR_TENANT.email,plan:plan,vence:vence,dias_gracia:diasGracia,activo:activo,notas:notas};
+async function guardarModal(){
+  if(!EDITOR) return;
+  var pass=document.getElementById("ed-pass").value.trim();
+  var payload={
+    email      :EDITOR.email,
+    plan       :document.getElementById("ed-plan").value,
+    vence      :document.getElementById("ed-vence").value,
+    dias_gracia:document.getElementById("ed-dias").value,
+    activo     :document.getElementById("ed-activo").value,
+    notas      :document.getElementById("ed-notas").value
+  };
   if(pass) payload.pass=pass;
-
-  var btn=document.getElementById("btn-guardar-edicion");
+  var btn=document.getElementById("btn-guardar-modal");
   btn.disabled=true; btn.textContent="Guardando…";
   try{
-    var r=await postApi({action:"adminSaveTenant",data:JSON.stringify(payload)});
+    var r=await api({action:"adminSaveTenant",data:JSON.stringify(payload)});
     if(r.ok){
+      var t=DB.find(function(m){ return m.email===EDITOR.email; });
+      if(t){
+        t.plan=payload.plan; t.vence=payload.vence;
+        t.activo=payload.activo==="TRUE"; t.notas=payload.notas;
+        t.dias_gracia=payload.dias_gracia;
+      }
       toast("✅ Cambios guardados","ok");
-      // Actualizar cache
-      var t=TENANTS_CACHE.find(function(m){ return m.email===EDITOR_TENANT.email; });
-      if(t){ t.plan=plan; t.vence=vence; t.activo=activo==="TRUE"; t.notas=notas; }
-      filtrarMedicos();
+      filtrar();
       cerrarModal();
-    } else { toast("❌ "+(r.msg||"Error al guardar"),"err"); }
+    } else toast("❌ "+(r.msg||"Error al guardar"),"err");
   }catch(e){ toast("❌ "+e.message,"err"); }
   finally{ btn.disabled=false; btn.textContent="💾 Guardar cambios"; }
 }
 
-// Acciones rápidas dentro del modal
-async function accionRenovar(){
-  if(!EDITOR_TENANT) return;
-  var hoy=new Date(); hoy.setFullYear(hoy.getFullYear()+1);
-  var nuevaVence=hoy.toISOString().slice(0,10);
+async function modalRenovar(){
+  if(!EDITOR) return;
+  var h=new Date(); h.setFullYear(h.getFullYear()+1);
+  var nv=h.toISOString().slice(0,10);
   try{
-    var r=await postApi({action:"adminGrantEdit",tenant_email:EDITOR_TENANT.email,nueva_vence:nuevaVence});
+    var r=await api({action:"adminGrantEdit",tenant_email:EDITOR.email,nueva_vence:nv});
     if(r.ok){
-      document.getElementById("ed-vence").value=nuevaVence;
+      document.getElementById("ed-vence").value=nv;
       document.getElementById("ed-activo").value="TRUE";
-      toast("✅ Renovado hasta "+nuevaVence,"ok");
-    } else { toast("❌ "+(r.msg||"Error"),"err"); }
+      toast("✅ Renovado hasta "+nv,"ok");
+    } else toast("❌ "+(r.msg||"Error"),"err");
   }catch(e){ toast("❌ "+e.message,"err"); }
 }
 
-async function accionToggle(){
-  if(!EDITOR_TENANT) return;
-  var esActivo=(document.getElementById("ed-activo").value)==="TRUE";
-  if(!confirm((esActivo?"¿Suspender":"¿Activar")+" a "+EDITOR_TENANT.nombre_legal+"?")) return;
+async function modalToggle(){
+  if(!EDITOR) return;
+  var ea=document.getElementById("ed-activo").value==="TRUE";
+  if(!confirm((ea?"¿Suspender":"¿Activar")+" a "+EDITOR.nombre_legal+"?")) return;
   try{
-    var r=await postApi({action:"adminToggleActivo",tenant_email:EDITOR_TENANT.email});
+    var r=await api({action:"adminToggleActivo",tenant_email:EDITOR.email});
     if(r.ok){
-      var nuevoActivo=r.activo?"TRUE":"FALSE";
-      document.getElementById("ed-activo").value=nuevoActivo;
-      var btnT=document.getElementById("btn-toggle");
-      btnT.textContent=r.activo?"⏸ Suspender":"▶️ Activar";
-      btnT.className="btn-sm "+(r.activo?"danger":"ok");
+      document.getElementById("ed-activo").value=r.activo?"TRUE":"FALSE";
+      var bt=document.getElementById("btn-m-toggle");
+      bt.textContent=r.activo?"⏸ Suspender":"▶️ Activar";
+      bt.className  ="btn-sm "+(r.activo?"danger":"ok");
       toast((r.activo?"✅ Activado":"⏸ Suspendido"),"ok");
-    } else { toast("❌ "+(r.msg||"Error"),"err"); }
+    } else toast("❌ "+(r.msg||"Error"),"err");
   }catch(e){ toast("❌ "+e.message,"err"); }
 }
 
-function abrirLanding(){
-  if(!EDITOR_TENANT) return;
-  window.open(BASE_URL+"/index.html?lic="+EDITOR_TENANT.slug,"_blank");
+function modalLanding(){
+  if(EDITOR) window.open(BASE_URL+"/index.html?lic="+EDITOR.slug,"_blank");
 }
 
-// ══════════════════════════════════════════════
-//  TAB PERFIL — getGenerador + saveGenerador
-// ══════════════════════════════════════════════
+/* ════════════════════════════════════════════
+   TAB ALERTAS
+════════════════════════════════════════════ */
+async function cargarAlertas(){
+  ["lista-proximos","lista-vencidos"].forEach(function(id){
+    document.getElementById(id).innerHTML=
+      '<div style="color:var(--txt3);font-size:var(--fs-sm)">🔄 Cargando…</div>';
+  });
+  try{
+    var r=await api({action:"adminGetAlertas",dias_antes:"30",dias_post:"30"});
+    if(!r.ok){ toast("❌ "+(r.msg||"Error"),"err"); return; }
+    document.getElementById("s-prox").textContent=r.totals.proximos;
+    document.getElementById("s-venc").textContent=r.totals.vencidos;
+    document.getElementById("s-sf").textContent  =r.totals.sin_fecha;
+
+    var elP=document.getElementById("lista-proximos");
+    if(!r.proximos||!r.proximos.length){
+      elP.innerHTML='<div style="color:var(--txt3);font-size:var(--fs-sm)">✅ Sin vencimientos próximos</div>';
+    } else {
+      elP.innerHTML=r.proximos.map(function(m){
+        var d=m.dias_para_vencer;
+        var cls=d<=1?"urgente":"proximo";
+        var dl=d===0?"🔴 Vence HOY":d===1?"⚠️ Vence mañana":"⚠️ Vence en "+d+" días";
+        var dc=d<=1?"e":d<=7?"w":"g";
+        return '<div class="ac '+cls+'">'
+          +'<div class="ac-nombre">'+esc(m.nombre_legal)+'</div>'
+          +'<div class="ac-det">'+esc(m.email)+' · '+esc(m.plan)+'</div>'
+          +'<div class="ac-dias '+dc+'">'+dl+' ('+d2s(m.vence)+')</div>'
+          +'<div class="ac-btns">'
+          +'<button class="tc-btn ok"      onclick="renovarRapido(\''+esc(m.email)+'\',\''+esc(m.nombre_legal)+'\')">🔄 +1 año</button>'
+          +'<button class="tc-btn primary" onclick="irAEditar(\''+esc(m.email)+'\')">✏️ Editar</button>'
+          +'</div></div>';
+      }).join("");
+    }
+
+    var elV=document.getElementById("lista-vencidos");
+    if(!r.vencidos||!r.vencidos.length){
+      elV.innerHTML='<div style="color:var(--txt3);font-size:var(--fs-sm)">✅ Sin vencimientos recientes</div>';
+    } else {
+      elV.innerHTML=r.vencidos.map(function(m){
+        var d=Math.abs(m.dias_para_vencer);
+        return '<div class="ac vencido">'
+          +'<div class="ac-nombre">'+esc(m.nombre_legal)+'</div>'
+          +'<div class="ac-det">'+esc(m.email)+' · '+esc(m.plan)+'</div>'
+          +'<div class="ac-dias e">❌ Venció hace '+d+' día'+(d!==1?"s":"")+'  ('+d2s(m.vence)+')</div>'
+          +'<div class="ac-btns">'
+          +'<button class="tc-btn ok"      onclick="renovarRapido(\''+esc(m.email)+'\',\''+esc(m.nombre_legal)+'\')">🔄 +1 año</button>'
+          +'<button class="tc-btn primary" onclick="irAEditar(\''+esc(m.email)+'\')">✏️ Editar</button>'
+          +'</div></div>';
+      }).join("");
+    }
+    toast("✅ Alertas cargadas","ok");
+  }catch(e){ toast("❌ "+e.message,"err"); }
+}
+
+async function irAEditar(email){
+  if(DB.length===0) await cargarTenants();
+  setTab("consulta");
+  setTimeout(function(){ abrirModal(email); },150);
+}
+
+/* ════════════════════════════════════════════
+   TAB PERFIL
+════════════════════════════════════════════ */
 async function cargarPerfil(){
   try{
-    var r=await postApi({action:"getGenerador"});
-    if(!r.ok){ toast("❌ "+(r.msg||"Error al cargar perfil"),"err"); return; }
+    var r=await api({action:"getGenerador"});
+    if(!r.ok){ toast("❌ "+(r.msg||"Error"),"err"); return; }
     var d=r.data;
-    document.getElementById("gen-nombre").value   = d.nombre_generador||"";
-    document.getElementById("gen-telefono").value = d.telefono||"";
-    document.getElementById("gen-correo").value   = d.correo||"";
+    document.getElementById("gen-nombre").value      = d.nombre_generador||"";
+    document.getElementById("gen-tel").value         = d.telefono||"";
+    document.getElementById("gen-correo").value      = d.correo||"";
     document.getElementById("gen-av-nombre").textContent = d.nombre_generador||"—";
     document.getElementById("gen-av-email").textContent  = d.email||"—";
-    // Avatar
     var av=document.getElementById("gen-av");
     if(d.logo&&d.logo.length>100){
-      GEN_LOGO_B64=d.logo;
-      av.innerHTML='<img src="'+d.logo+'" style="width:100%;height:100%;object-fit:cover;border-radius:50%"/>';
-      mostrarGenLogo(d.logo);
+      LOGO_B64=d.logo;
+      av.innerHTML='<img src="'+d.logo+'"/>';
+      mostrarLogoPreview(d.logo);
     } else {
-      GEN_LOGO_B64="";
+      LOGO_B64="";
+      av.innerHTML="";
       av.textContent=(d.nombre_generador||"?")[0].toUpperCase();
     }
   }catch(e){ toast("❌ "+e.message,"err"); }
 }
 
 async function guardarPerfil(){
-  var nombre   = document.getElementById("gen-nombre").value.trim();
-  var telefono = document.getElementById("gen-telefono").value.trim();
-  var correo   = document.getElementById("gen-correo").value.trim();
-  if(!nombre){ toast("El nombre es requerido","err"); return; }
-  var btn=document.querySelector("#pane-perfil .btn-full");
+  var nombre=document.getElementById("gen-nombre").value.trim();
+  if(!nombre){ toast("Nombre requerido","err"); return; }
+  var btn=document.getElementById("btn-save-perfil");
   btn.disabled=true; btn.textContent="Guardando…";
   try{
-    var payload={nombre_generador:nombre,telefono:telefono,correo:correo,logo:GEN_LOGO_B64};
-    var r=await postApi({action:"saveGenerador",data:JSON.stringify(payload)});
+    var r=await api({action:"saveGenerador",data:JSON.stringify({
+      nombre_generador:nombre,
+      telefono:document.getElementById("gen-tel").value.trim(),
+      correo:document.getElementById("gen-correo").value.trim(),
+      logo:LOGO_B64
+    })});
     if(r.ok){
-      toast("✅ Perfil guardado","ok");
       document.getElementById("gen-av-nombre").textContent=nombre;
       var av=document.getElementById("gen-av");
-      if(GEN_LOGO_B64){
-        av.innerHTML='<img src="'+GEN_LOGO_B64+'" style="width:100%;height:100%;object-fit:cover;border-radius:50%"/>';
-      } else {
-        av.innerHTML=""; av.textContent=nombre[0].toUpperCase();
-      }
-      // Actualizar sesión guardada
-      var s=getSesion(); if(s){ s.nombre=nombre; s.logo=GEN_LOGO_B64; lsSet(SESSION_KEY,s); }
-    } else { toast("❌ "+(r.msg||"Error"),"err"); }
+      if(LOGO_B64){ av.innerHTML='<img src="'+LOGO_B64+'"/>'; }
+      else{ av.innerHTML=""; av.textContent=nombre[0].toUpperCase(); }
+      var s=sesion(); if(s){ s.nombre=nombre; s.logo=LOGO_B64; ls(SESSION_KEY,s); }
+      toast("✅ Perfil guardado","ok");
+    } else toast("❌ "+(r.msg||"Error"),"err");
   }catch(e){ toast("❌ "+e.message,"err"); }
   finally{ btn.disabled=false; btn.textContent="💾 Guardar perfil"; }
 }
 
-function onGenLogoChange(event){
-  var file=event.target.files[0]; if(!file) return;
-  if(!file.type.startsWith("image/")){ toast("Solo imágenes","err"); return; }
-  if(file.size>2097152){ toast("Máx. 2 MB","err"); return; }
-  var reader=new FileReader();
-  reader.onload=function(e){ comprimirImagen(e.target.result,200,200,function(c){ GEN_LOGO_B64=c; mostrarGenLogo(c); toast("✅ Logo listo — guarda los cambios","ok"); }); };
-  reader.readAsDataURL(file);
+function onLogoChange(e){
+  var f=e.target.files[0]; if(!f) return;
+  if(!f.type.startsWith("image/")){ toast("Solo imágenes","err"); return; }
+  if(f.size>2097152){ toast("Máx. 2 MB","err"); return; }
+  var fr=new FileReader();
+  fr.onload=function(ev){
+    comprimir(ev.target.result,200,200,function(b64){
+      LOGO_B64=b64; mostrarLogoPreview(b64);
+      toast("✅ Logo listo · guarda los cambios","ok");
+    });
+  };
+  fr.readAsDataURL(f);
 }
-function comprimirImagen(src,maxW,maxH,callback){
-  var img=new Image(); img.onload=function(){
-    var c=document.createElement("canvas"),r=Math.min(maxW/img.width,maxH/img.height,1);
+function comprimir(src,mw,mh,cb){
+  var img=new Image();
+  img.onload=function(){
+    var r=Math.min(mw/img.width,mh/img.height,1);
+    var c=document.createElement("canvas");
     c.width=Math.round(img.width*r); c.height=Math.round(img.height*r);
     c.getContext("2d").drawImage(img,0,0,c.width,c.height);
-    callback(c.toDataURL("image/jpeg",.82));
-  }; img.onerror=function(){ toast("No se pudo procesar la imagen","err"); }; img.src=src;
+    cb(c.toDataURL("image/jpeg",.82));
+  };
+  img.onerror=function(){ toast("No se pudo leer la imagen","err"); };
+  img.src=src;
 }
-function mostrarGenLogo(src){
-  var img=document.getElementById("gen-logo-preview");
-  var hint=document.querySelector("#pane-perfil .logo-upload-hint");
-  var btn=document.getElementById("btn-rm-gen-logo");
-  img.src=src; img.style.display="block";
-  if(hint) hint.style.display="none";
-  if(btn) btn.style.display="inline-block";
+function mostrarLogoPreview(src){
+  var p=document.getElementById("gen-logo-prev"),
+      h=document.querySelector(".upload-hint"),
+      b=document.getElementById("btn-rm-logo");
+  p.src=src; p.style.display="block";
+  if(h) h.style.display="none";
+  if(b) b.style.display="inline-block";
 }
-function quitarGenLogo(){
-  GEN_LOGO_B64="";
-  var img=document.getElementById("gen-logo-preview");
-  var hint=document.querySelector("#pane-perfil .logo-upload-hint");
-  var btn=document.getElementById("btn-rm-gen-logo");
-  var inp=document.getElementById("gen-logo-file");
-  if(img){ img.src=""; img.style.display="none"; }
-  if(hint) hint.style.display="block";
-  if(btn) btn.style.display="none";
-  if(inp) inp.value="";
-  toast("Logo eliminado — guarda los cambios");
-}
-
-// ── Utilidades ──
-function esc(s){ return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#x27;"); }
-var _tt;
-function toast(msg,type){
-  var t=document.getElementById("toast");
-  t.textContent=msg; t.className="on "+(type||"");
-  clearTimeout(_tt); _tt=setTimeout(function(){ t.classList.remove("on"); },3200);
+function quitarLogo(){
+  LOGO_B64="";
+  var p=document.getElementById("gen-logo-prev"),
+      h=document.querySelector(".upload-hint"),
+      b=document.getElementById("btn-rm-logo"),
+      i=document.getElementById("gen-logo-file");
+  if(p){ p.src=""; p.style.display="none"; }
+  if(h) h.style.display="flex";
+  if(b) b.style.display="none";
+  if(i) i.value="";
+  toast("Logo eliminado · guarda los cambios");
 }
 </script>
 </body>
