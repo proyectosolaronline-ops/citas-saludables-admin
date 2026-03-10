@@ -1048,12 +1048,14 @@ async function cargarDatosMedico(slug){
     document.getElementById("e-whatsapp").value         =cfg.whatsapp||"";
     document.getElementById("e-direccion").value        =cfg.direccion||"";
     document.getElementById("e-horario").value          =cfg.horario||"";
-    var svc=cfg.servicios||["Consulta general","Primera vez","Seguimiento","Urgencia"];
-    if(typeof svc==="string"){ try{ svc=JSON.parse(svc); }catch(e){ svc=svc.split(","); } }
-    document.getElementById("e-servicios").value=svc.join("\n");
-    if(cfg.logo&&cfg.logo.length>100){ EDITOR_LOGO_B64=cfg.logo; mostrarLogoPreviewAdmin(cfg.logo); } else { limpiarLogoAdmin(); }
-    document.getElementById("editor-form").style.display="block";
-    actualizarPreview(); toast("✅ Datos cargados","ok");
+    var svc = cfg.servicios || ["Consulta general","Primera vez","Seguimiento","Urgencia"];
+if(typeof svc === "string"){ try{ svc = JSON.parse(svc); }catch(e){ svc = svc.split(",").map(function(s){ return s.trim(); }); } }
+if(!Array.isArray(svc)) svc = ["Consulta general","Primera vez","Seguimiento","Urgencia"];
+svc = svc.map(function(s){ return typeof s === "string" ? s : JSON.stringify(s); });
+document.getElementById("e-servicios").value = svc.join("\n");
+if(cfg.logo&&cfg.logo.length>100){ EDITOR_LOGO_B64=cfg.logo; mostrarLogoPreviewAdmin(cfg.logo); } else { limpiarLogoAdmin(); }
+document.getElementById("editor-form").style.display="block";
+actualizarPreview(); toast("✅ Datos cargados","ok");
   }catch(e){ toast("❌ Error: "+e.message,"err"); }
 }
 
